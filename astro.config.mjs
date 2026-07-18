@@ -17,6 +17,13 @@ export default defineConfig({
   adapter: vercel({
     webAnalytics: { enabled: false },
   }),
+  // Astro's built-in origin check misfires behind Vercel's proxy (the browser
+  // Origin doesn't match the URL Astro reconstructs), returning 403 on form
+  // POSTs. We disable it and enforce a lenient same-site guard ourselves in
+  // src/pages/api/contact.ts instead.
+  security: {
+    checkOrigin: false,
+  },
   integrations: [
     tailwind({
       // We manage the base reset/globals ourselves in src/styles/theme.css.

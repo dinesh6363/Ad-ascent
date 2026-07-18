@@ -31,6 +31,30 @@ export const POST: APIRoute = async ({ request }) => {
   const redirect = (path: string) =>
     new Response(null, { status: 303, headers: { Location: path } });
 
+  // Lenient same-site guard (replaces Astro's checkOrigin, which misfires
+  // behind Vercel's proxy). Only reject when an Origin/Referer is present AND
+  // it clearly points to a foreign site. Missing header → allowed (the
+  // honeypot + server-side validation still guard against abuse).
+  const originHeader =
+    request.headers.get("origin") || request.headers.get("referer") || "";
+  if (originHeader) {
+    try {
+      const host = new URL(originHeader).hostname;
+      const sameSite =
+        host === "ad-ascent.com" ||
+        host.endsWith(".ad-ascent.com") ||
+        host === "localhost" ||
+        host === "127.0.0.1";
+      if (!sameSite) {
+        return wantsJson
+          ? json({ ok: false, error: "Forbidden." }, 403)
+          : redirect("/thanks?error=1");
+      }
+    } catch {
+      // Malformed header — allow through; other protections still apply.
+    }
+  }
+
   let form: FormData;
   try {
     form = await request.formData();
