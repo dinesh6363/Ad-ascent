@@ -69,9 +69,9 @@ follows — no find-and-replace. Example:
 Tailwind utilities (`bg-primary`, `text-accent`, `border-border`, …) map to these
 variables via `tailwind.config.mjs`, so components never hardcode hex values.
 
-**Light / dark theme.** There's a working toggle in the header (sun/moon). Dark
-is the brand default; light is an explicit, persisted opt-in (saved to
-`localStorage`, applied before first paint to avoid a flash). Both palettes are
+**Light / dark theme.** There's a working toggle in the header (sun/moon). Light
+is the default; dark is an explicit, persisted opt-in (saved to `localStorage`,
+applied before first paint to avoid a flash). Both palettes are
 defined by the same tokens — `:root[data-theme="dark"]` and
 `:root[data-theme="light"]` in `theme.css`. The toggle component is
 `src/components/ThemeToggle.astro`; the wiring lives in `Layout.astro`.

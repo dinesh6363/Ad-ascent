@@ -1,11 +1,12 @@
 ---
 /**
  * Ad-Ascent wordmark — original inline SVG.
- * An ascending bar/line chart glyph (the "ascent") + the wordmark.
- * Fully themeable: the glyph gradient uses --color-primary / --color-accent.
+ * An angular "A" / ascent peak mark + the wordmark.
+ * Fully themeable: the mark uses the --color-primary / --color-accent gradient;
+ * the wordmark uses --color-text so it flips with the light/dark theme.
  *
  * Props:
- *  - variant: "full" (glyph + wordmark) | "mark" (glyph only)
+ *  - variant: "full" (mark + wordmark) | "mark" (mark only)
  *  - class:   extra classes for sizing/positioning
  */
 interface Props {
@@ -21,75 +22,43 @@ const gid = `aa-grad-${Math.random().toString(36).slice(2, 8)}`;
   variant === "mark" ? (
     <svg
       class={className}
-      viewBox="0 0 32 32"
+      viewBox="0 0 64 64"
       role="img"
       aria-label="Ad-Ascent"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        <linearGradient id={gid} x1="2" y1="30" x2="30" y2="2" gradientUnits="userSpaceOnUse">
+        <linearGradient id={gid} x1="6" y1="56" x2="58" y2="8" gradientUnits="userSpaceOnUse">
           <stop stop-color="var(--color-primary)" />
           <stop offset="1" stop-color="var(--color-accent)" />
         </linearGradient>
       </defs>
-      {/* ascending bars */}
-      <rect x="3" y="20" width="4.5" height="9" rx="1.4" fill={`url(#${gid})`} opacity="0.55" />
-      <rect x="10.75" y="14" width="4.5" height="15" rx="1.4" fill={`url(#${gid})`} opacity="0.78" />
-      <rect x="18.5" y="8" width="4.5" height="21" rx="1.4" fill={`url(#${gid})`} />
-      {/* upward trend line + arrow */}
-      <path
-        d="M4 21 L12 15 L19 17 L29 5"
-        stroke="var(--color-text)"
-        stroke-width="2.2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M24 4.5 L29.5 4.5 L29.5 10"
-        stroke="var(--color-text)"
-        stroke-width="2.2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
+      <path d="M32 7 L18 56 L6 56 Z" fill={`url(#${gid})`} />
+      <path d="M32 7 L58 56 L46 56 Z" fill={`url(#${gid})`} />
+      <path d="M22 41 L42 41 L42 46 L22 46 Z" fill={`url(#${gid})`} />
     </svg>
   ) : (
     <span class={`inline-flex items-center gap-2.5 ${className}`}>
       <svg
         class="h-7 w-7 shrink-0"
-        viewBox="0 0 32 32"
+        viewBox="0 0 64 64"
         role="img"
         aria-label="Ad-Ascent logo"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          <linearGradient id={gid} x1="2" y1="30" x2="30" y2="2" gradientUnits="userSpaceOnUse">
+          <linearGradient id={gid} x1="6" y1="56" x2="58" y2="8" gradientUnits="userSpaceOnUse">
             <stop stop-color="var(--color-primary)" />
             <stop offset="1" stop-color="var(--color-accent)" />
           </linearGradient>
         </defs>
-        <rect x="3" y="20" width="4.5" height="9" rx="1.4" fill={`url(#${gid})`} opacity="0.55" />
-        <rect x="10.75" y="14" width="4.5" height="15" rx="1.4" fill={`url(#${gid})`} opacity="0.78" />
-        <rect x="18.5" y="8" width="4.5" height="21" rx="1.4" fill={`url(#${gid})`} />
-        <path
-          d="M4 21 L12 15 L19 17 L29 5"
-          stroke="var(--color-text)"
-          stroke-width="2.2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M24 4.5 L29.5 4.5 L29.5 10"
-          stroke="var(--color-text)"
-          stroke-width="2.2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
+        <path d="M32 7 L18 56 L6 56 Z" fill={`url(#${gid})`} />
+        <path d="M32 7 L58 56 L46 56 Z" fill={`url(#${gid})`} />
+        <path d="M22 41 L42 41 L42 46 L22 46 Z" fill={`url(#${gid})`} />
       </svg>
-      <span class="text-[1.15rem] font-bold tracking-tight text-text">
-        Ad<span class="text-gradient">-Ascent</span>
-      </span>
+      <span class="text-[1.15rem] font-bold tracking-tight text-text">Ad-Ascent</span>
     </span>
   )
 }

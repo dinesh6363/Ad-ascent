@@ -64,7 +64,7 @@ export const hero = {
   kpis: [
     { label: "Cost / Lead", value: 38, prefix: "$", suffix: "", trend: "down" },
     { label: "Booked Jobs", value: 214, prefix: "", suffix: "", trend: "up" },
-    { label: "Conversion Rate", value: 11.4, suffix: "%", decimals: 1, trend: "up" },
+    { label: "Conversion Rate", value: 23.8, suffix: "%", decimals: 1, trend: "up" },
   ],
   /** Typewriter query used by the signature search→ad→booked animation. */
   searchQuery: "hvac repair near me",

@@ -47,7 +47,7 @@ const faqLd = {
 ---
 
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -57,11 +57,11 @@ const faqLd = {
     <script is:inline>
       (function () {
         try {
-          // Dark is the brand default; light is an explicit, persisted opt-in.
+          // Light is the default; dark is an explicit, persisted opt-in.
           var stored = localStorage.getItem("theme");
           document.documentElement.setAttribute(
             "data-theme",
-            stored === "light" ? "light" : "dark",
+            stored === "dark" ? "dark" : "light",
           );
         } catch (e) {}
       })();
@@ -70,8 +70,8 @@ const faqLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#0b0d12" />
-    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light dark" />
 
     <!-- Icons -->
     <link rel="icon" href="/favicon.ico" sizes="48x48" />

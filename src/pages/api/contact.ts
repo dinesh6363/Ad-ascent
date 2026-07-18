@@ -83,7 +83,7 @@ export const POST: APIRoute = async ({ request }) => {
   const rows: Array<[string, string]> = [
     ["Name", name],
     ["Email", email],
-    ["Phone", phone || "—"],
+    ["WhatsApp", phone || "—"],
     ["Company", company || "—"],
     ["Monthly ad budget", budget || "—"],
   ];
