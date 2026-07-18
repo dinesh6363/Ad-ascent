@@ -13,7 +13,7 @@ export const site = {
   tagline: "Modern digital services. Clean and professional.",
   url: SITE_URL,
   /** Form submissions are emailed here (see src/pages/api/contact.ts). */
-  contactEmail: "animesh@ad-ascent.com",
+  contactEmail: "info@ad-ascent.com",
   /** Verified sending address on the ad-ascent.com domain in Resend. */
   fromEmail: "Ad-Ascent <noreply@ad-ascent.com>",
   description:

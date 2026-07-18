@@ -111,7 +111,7 @@ in sync.
 
 The form posts to `src/pages/api/contact.ts`, which runs as a Vercel Serverless
 Function and emails every submission to `site.contactEmail` (currently
-`animesh@ad-ascent.com`), with `reply-to` set to the submitter.
+`info@ad-ascent.com`), with `reply-to` set to the submitter.
 
 ### 1. Get a Resend API key
 
