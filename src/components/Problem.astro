@@ -1,0 +1,34 @@
+---
+import { problem } from "../config";
+import SectionHeading from "./SectionHeading.astro";
+import Icon from "./Icon.astro";
+---
+
+<section id="problem" class="relative py-10 sm:py-14">
+  <div class="container">
+    <SectionHeading title={problem.title} lead={problem.lead} align="center" />
+
+    <ul class="mx-auto mt-12 grid max-w-4xl gap-3 sm:grid-cols-2">
+      {
+        problem.points.map((point, i) => (
+          <li
+            data-reveal
+            style={`--reveal-delay:${i * 70}ms`}
+            class:list={[
+              "group flex items-center gap-4 rounded-[var(--radius)] border border-border bg-surface/50 p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-danger/40",
+              // last odd item spans full width on 2-col grid
+              problem.points.length % 2 === 1 && i === problem.points.length - 1
+                ? "sm:col-span-2"
+                : "",
+            ]}
+          >
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-danger/10 text-danger transition-transform duration-300 group-hover:scale-110">
+              <Icon name="close" class="h-4 w-4" />
+            </span>
+            <span class="text-sm font-medium text-text sm:text-base">{point}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

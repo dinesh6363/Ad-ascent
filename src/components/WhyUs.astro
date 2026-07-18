@@ -1,0 +1,31 @@
+---
+import { why } from "../config";
+import SectionHeading from "./SectionHeading.astro";
+import Icon from "./Icon.astro";
+---
+
+<section id="why" class="relative py-10 sm:py-14">
+  <div class="container">
+    <SectionHeading title={why.title} align="center" />
+
+    <div class="mt-14 grid gap-5 md:grid-cols-3">
+      {
+        why.cards.map((card, i) => (
+          <article
+            data-reveal
+            style={`--reveal-delay:${i * 90}ms`}
+            class="group relative rounded-[var(--radius-lg)] border border-border bg-gradient-to-b from-surface/60 to-surface/20 p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40"
+          >
+            <div class="flex items-center gap-3">
+              <span class="inline-grid h-11 w-11 place-items-center rounded-xl border border-border bg-bg/60 text-accent transition-colors duration-300 group-hover:border-accent/40">
+                <Icon name={card.icon} class="h-5 w-5" />
+              </span>
+              <h3 class="text-lg font-bold text-text">{card.title}</h3>
+            </div>
+            <p class="mt-4 text-sm leading-relaxed text-muted">{card.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

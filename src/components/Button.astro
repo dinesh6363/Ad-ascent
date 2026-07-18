@@ -1,0 +1,58 @@
+---
+/**
+ * Shared CTA button. Renders as <a> (href) or <button> (type).
+ * Variants use only semantic color tokens.
+ */
+import Icon from "./Icon.astro";
+
+interface Props {
+  href?: string;
+  type?: "button" | "submit";
+  variant?: "primary" | "secondary" | "ghost";
+  size?: "md" | "lg";
+  icon?: string;
+  class?: string;
+  id?: string;
+  [key: string]: unknown;
+}
+
+const {
+  href,
+  type = "button",
+  variant = "primary",
+  size = "md",
+  icon,
+  class: className = "",
+  id,
+  ...rest
+} = Astro.props;
+
+const base =
+  "group relative inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 will-change-transform focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60";
+
+const sizes = {
+  md: "px-5 py-2.5 text-sm",
+  lg: "px-7 py-3.5 text-base",
+};
+
+const variants = {
+  primary:
+    "bg-primary text-white shadow-[0_8px_30px_-8px_var(--glow-primary)] hover:bg-primary-hover hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-10px_var(--glow-primary)] active:translate-y-0",
+  secondary:
+    "border border-border-strong bg-surface/60 text-text backdrop-blur hover:-translate-y-0.5 hover:border-primary/60 hover:bg-surface",
+  ghost: "text-muted hover:text-text",
+};
+
+const cls = `${base} ${sizes[size]} ${variants[variant]} ${className}`;
+const Tag = href ? "a" : "button";
+---
+
+<Tag
+  class={cls}
+  id={id}
+  {...href ? { href } : { type }}
+  {...rest}
+>
+  <slot />
+  {icon && <Icon name={icon} class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />}
+</Tag>

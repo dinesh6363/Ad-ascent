@@ -1,0 +1,33 @@
+name: Lighthouse CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Builds the static site and runs Lighthouse against ./dist/client
+      # using the thresholds in lighthouserc.json. No RESEND_API_KEY needed —
+      # the key is only read at runtime by the serverless function.
+      - name: Build + Lighthouse
+        run: npm run lighthouse
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: .lighthouseci
+          if-no-files-found: ignore

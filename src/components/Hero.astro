@@ -1,0 +1,415 @@
+---
+import { hero } from "../config";
+import Button from "./Button.astro";
+import Icon from "./Icon.astro";
+---
+
+<section id="home" class="relative overflow-hidden pt-32 pb-16 sm:pt-36 lg:pt-40 lg:pb-24">
+  <div class="container">
+    <div class="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
+      <!-- Copy -->
+      <div class="min-w-0 max-w-xl">
+        <p
+          data-reveal
+          class="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-3.5 py-1.5 text-xs font-medium text-muted backdrop-blur"
+        >
+          <span class="relative flex h-2 w-2">
+            <span class="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-primary"></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
+          </span>
+          {hero.eyebrow}
+        </p>
+
+        <h1
+          data-reveal
+          style="--reveal-delay:80ms"
+          class="mt-6 text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.4rem]"
+        >
+          {hero.titleLead}<span class="text-gradient">{hero.titleHighlight}</span>
+        </h1>
+
+        <p
+          data-reveal
+          style="--reveal-delay:160ms"
+          class="mt-6 text-lg leading-relaxed text-muted"
+        >
+          {hero.subhead}
+        </p>
+
+        <div
+          data-reveal
+          style="--reveal-delay:240ms"
+          class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
+        >
+          <Button href={hero.primaryCta.href} size="lg" icon="arrow">
+            {hero.primaryCta.label}
+          </Button>
+          <Button href={hero.secondaryCta.href} size="lg" variant="secondary">
+            {hero.secondaryCta.label}
+          </Button>
+        </div>
+
+        <dl
+          data-reveal
+          style="--reveal-delay:320ms"
+          class="mt-10 flex flex-wrap gap-x-8 gap-y-4 border-t border-border pt-6"
+        >
+          <div>
+            <dt class="text-xs uppercase tracking-wider text-muted">Focus</dt>
+            <dd class="mt-1 text-sm font-semibold text-text">HVAC only</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-wider text-muted">Contracts</dt>
+            <dd class="mt-1 text-sm font-semibold text-text">Month-to-month</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-wider text-muted">Measured by</dt>
+            <dd class="mt-1 text-sm font-semibold text-text">Booked jobs</dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Signature animation: browser window with search → ad → booked -->
+      <div data-reveal style="--reveal-delay:200ms" class="relative min-w-0">
+        <!-- ambient glow -->
+        <div
+          class="pointer-events-none absolute -inset-6 -z-10 rounded-[32px] bg-[radial-gradient(60%_60%_at_60%_0%,var(--glow-primary),transparent_70%)] blur-2xl"
+          aria-hidden="true"
+        >
+        </div>
+
+        <div
+          id="hero-demo"
+          class="overflow-hidden rounded-[var(--radius-lg)] border border-border-strong bg-surface/80 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)] backdrop-blur"
+          role="img"
+          aria-label="Animated demo: a Google search for 'hvac repair near me' turns a sponsored ad click into a booked job, with lead metrics rising."
+        >
+          <!-- browser chrome -->
+          <div class="flex items-center gap-2 border-b border-border px-4 py-3">
+            <span class="h-3 w-3 rounded-full bg-danger/70"></span>
+            <span class="h-3 w-3 rounded-full bg-[#f5b333]/70"></span>
+            <span class="h-3 w-3 rounded-full bg-success/70"></span>
+            <div
+              class="ml-3 flex-1 truncate rounded-md border border-border bg-bg/60 px-3 py-1 text-[11px] text-muted"
+            >
+              google.com/search
+            </div>
+          </div>
+
+          <!-- stage -->
+          <div class="relative h-[360px] px-5 py-5 sm:h-[380px]">
+            <!-- animated cursor -->
+            <div
+              id="demo-cursor"
+              class="pointer-events-none absolute left-0 top-0 z-30 opacity-0"
+              aria-hidden="true"
+            >
+              <svg viewBox="0 0 24 24" class="h-5 w-5 drop-shadow" fill="var(--color-text)" stroke="var(--color-bg)" stroke-width="1.5">
+                <path d="M4 3l7 17 2.5-6.5L20 11z" />
+              </svg>
+            </div>
+
+            <!-- SEARCH PHASE -->
+            <div id="phase-search" class="absolute inset-x-5 top-5 transition-opacity duration-500">
+              <div class="flex items-center gap-2.5 rounded-full border border-border bg-bg/70 px-4 py-2.5">
+                <Icon name="search" class="h-4 w-4 shrink-0 text-muted" />
+                <span class="text-sm text-text">
+                  <span id="demo-typed"></span><span id="demo-caret" class="ml-px inline-block h-4 w-px translate-y-0.5 bg-primary align-middle animate-blink"></span>
+                </span>
+              </div>
+
+              <!-- results -->
+              <div class="mt-4 space-y-2.5">
+                <!-- sponsored / ad result (highlight) -->
+                <div
+                  id="demo-ad"
+                  class="translate-y-2 rounded-xl border border-primary/40 bg-primary/5 p-3.5 opacity-0 transition-all duration-500"
+                >
+                  <div class="flex items-center gap-2">
+                    <span class="rounded bg-primary/15 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-primary">Sponsored</span>
+                    <span class="text-[11px] text-muted">comfortair-hvac.com</span>
+                  </div>
+                  <p class="mt-1.5 text-sm font-semibold text-text">
+                    Comfort Air — Emergency HVAC Repair, Same Day
+                  </p>
+                  <p class="text-xs text-muted">
+                    Fast, licensed technicians near you. Book online in 60 seconds.
+                  </p>
+                </div>
+
+                <!-- organic results (muted skeleton) -->
+                {
+                  [0, 1].map((i) => (
+                    <div
+                      class="demo-organic translate-y-2 rounded-xl border border-border bg-bg/40 p-3.5 opacity-0 transition-all duration-500"
+                      style={`--o:${i}`}
+                    >
+                      <div class="h-2.5 w-24 rounded bg-border-strong"></div>
+                      <div class="mt-2 h-2 w-3/4 rounded bg-border"></div>
+                      <div class="mt-1.5 h-2 w-2/3 rounded bg-border"></div>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+
+            <!-- BOOKED PHASE (dashboard) -->
+            <div
+              id="phase-booked"
+              class="pointer-events-none absolute inset-x-5 top-5 opacity-0 transition-opacity duration-500"
+            >
+              <div class="flex items-center gap-3 rounded-xl border border-success/40 bg-success/10 p-3.5">
+                <span class="grid h-9 w-9 place-items-center rounded-full bg-success/20 text-success">
+                  <Icon name="check" class="h-5 w-5" />
+                </span>
+                <div>
+                  <p class="text-sm font-semibold text-text">Lead Booked ✓</p>
+                  <p class="text-xs text-muted">Comfort Air — new job scheduled</p>
+                </div>
+              </div>
+
+              <!-- KPI cards -->
+              <div class="mt-3 grid grid-cols-3 gap-2.5">
+                {
+                  hero.kpis.map((k) => (
+                    <div class="rounded-xl border border-border bg-bg/50 p-3">
+                      <p class="text-[10px] uppercase tracking-wide text-muted">{k.label}</p>
+                      <p class="mt-1 text-lg font-bold text-text">
+                        <span
+                          class="demo-kpi"
+                          data-value={k.value}
+                          data-decimals={"decimals" in k ? k.decimals : 0}
+                          data-prefix={"prefix" in k ? k.prefix : ""}
+                          data-suffix={"suffix" in k ? k.suffix : ""}
+                          >0</span
+                        >
+                        <span
+                          class:list={[
+                            "ml-0.5 align-middle text-[11px]",
+                            k.trend === "down" ? "text-success" : "text-success",
+                          ]}
+                          >{k.trend === "down" ? "▼" : "▲"}</span
+                        >
+                      </p>
+                    </div>
+                  ))
+                }
+              </div>
+
+              <!-- animated line chart -->
+              <div class="mt-3 rounded-xl border border-border bg-bg/50 p-3">
+                <div class="mb-1 flex items-center justify-between">
+                  <p class="text-[11px] font-medium text-muted">Booked jobs — last 30 days</p>
+                  <span class="text-[11px] font-semibold text-success">▲ 42%</span>
+                </div>
+                <svg viewBox="0 0 300 90" class="h-[90px] w-full" preserveAspectRatio="none" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="hero-stroke" x1="0" y1="0" x2="300" y2="0" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="var(--color-primary)" />
+                      <stop offset="1" stop-color="var(--color-accent)" />
+                    </linearGradient>
+                    <linearGradient id="hero-fill" x1="0" y1="0" x2="0" y2="90" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="var(--color-primary)" stop-opacity="0.28" />
+                      <stop offset="1" stop-color="var(--color-primary)" stop-opacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <path
+                    id="hero-area"
+                    d="M0,72 L40,66 L80,70 L120,52 L160,58 L200,38 L240,44 L300,16 L300,90 L0,90 Z"
+                    fill="url(#hero-fill)"
+                    opacity="0"
+                  />
+                  <path
+                    id="hero-line"
+                    d="M0,72 L40,66 L80,70 L120,52 L160,58 L200,38 L240,44 L300,16"
+                    fill="none"
+                    stroke="url(#hero-stroke)"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    pathLength="1"
+                    style="stroke-dasharray:1;stroke-dashoffset:1"
+                  />
+                  <circle id="hero-dot" cx="300" cy="16" r="3.5" fill="var(--color-accent)" opacity="0" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Signature "search → ad → booked job" loop. Fully disabled under
+  // prefers-reduced-motion (final booked/dashboard state shown statically).
+  const demo = document.getElementById("hero-demo");
+  if (demo) {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const typed = document.getElementById("demo-typed")!;
+    const caret = document.getElementById("demo-caret")!;
+    const ad = document.getElementById("demo-ad")!;
+    const organics = Array.from(document.querySelectorAll<HTMLElement>(".demo-organic"));
+    const cursor = document.getElementById("demo-cursor")!;
+    const phaseSearch = document.getElementById("phase-search")!;
+    const phaseBooked = document.getElementById("phase-booked")!;
+    const line = document.getElementById("hero-line")!;
+    const area = document.getElementById("hero-area")!;
+    const dot = document.getElementById("hero-dot")!;
+    const kpis = Array.from(document.querySelectorAll<HTMLElement>(".demo-kpi"));
+    const query = "hvac repair near me";
+
+    const timers: number[] = [];
+    const wait = (ms: number) => new Promise<void>((r) => timers.push(window.setTimeout(r, ms)));
+    const clearTimers = () => {
+      timers.forEach(clearTimeout);
+      timers.length = 0;
+    };
+
+    const setKpi = (el: HTMLElement, animate: boolean) => {
+      const value = parseFloat(el.dataset.value || "0");
+      const decimals = parseInt(el.dataset.decimals || "0", 10);
+      const prefix = el.dataset.prefix || "";
+      const suffix = el.dataset.suffix || "";
+      if (!animate) {
+        el.textContent = prefix + value.toFixed(decimals) + suffix;
+        return;
+      }
+      const dur = 1100;
+      let start: number | null = null;
+      const step = (ts: number) => {
+        if (start === null) start = ts;
+        const p = Math.min((ts - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = prefix + (value * eased).toFixed(decimals) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
+    const showBookedStatic = () => {
+      phaseSearch.style.opacity = "0";
+      phaseBooked.style.opacity = "1";
+      line.style.strokeDashoffset = "0";
+      area.style.opacity = "1";
+      dot.style.opacity = "1";
+      caret.style.display = "none";
+      typed.textContent = query;
+      ad.style.opacity = "1";
+      ad.style.transform = "none";
+      kpis.forEach((el) => setKpi(el, false));
+    };
+
+    const reset = () => {
+      typed.textContent = "";
+      caret.style.display = "";
+      phaseSearch.style.opacity = "1";
+      phaseBooked.style.opacity = "0";
+      ad.style.opacity = "0";
+      ad.style.transform = "translateY(8px)";
+      organics.forEach((o) => {
+        o.style.opacity = "0";
+        o.style.transform = "translateY(8px)";
+      });
+      cursor.style.opacity = "0";
+      cursor.style.transform = "translate(0,0)";
+      line.style.transition = "none";
+      line.style.strokeDashoffset = "1";
+      area.style.opacity = "0";
+      dot.style.opacity = "0";
+      kpis.forEach((el) => (el.textContent = "0"));
+    };
+
+    const moveCursor = (x: number, y: number, ms: number) => {
+      cursor.style.transition = `transform ${ms}ms cubic-bezier(0.4,0,0.2,1), opacity 200ms ease`;
+      cursor.style.opacity = "1";
+      cursor.style.transform = `translate(${x}px, ${y}px)`;
+    };
+
+    async function loop() {
+      reset();
+      await wait(700);
+      // type the query
+      for (let i = 0; i < query.length; i++) {
+        typed.textContent = query.slice(0, i + 1);
+        await wait(72);
+      }
+      await wait(350);
+      // reveal ad + organics
+      ad.style.opacity = "1";
+      ad.style.transform = "translateY(0)";
+      organics.forEach((o, i) => {
+        window.setTimeout(() => {
+          o.style.opacity = "1";
+          o.style.transform = "translateY(0)";
+        }, 120 + i * 110);
+      });
+      await wait(650);
+      // move cursor to the sponsored ad and "click"
+      const stageRect = demo!.getBoundingClientRect();
+      const adRect = ad.getBoundingClientRect();
+      moveCursor(
+        adRect.left - stageRect.left + 120,
+        adRect.top - stageRect.top + 26,
+        700,
+      );
+      await wait(760);
+      ad.animate(
+        [{ transform: "scale(1)" }, { transform: "scale(0.97)" }, { transform: "scale(1)" }],
+        { duration: 220, easing: "ease-out" },
+      );
+      await wait(320);
+      // transition to booked
+      phaseSearch.style.opacity = "0";
+      cursor.style.opacity = "0";
+      await wait(360);
+      phaseBooked.style.opacity = "1";
+      // draw chart + count up
+      requestAnimationFrame(() => {
+        line.style.transition = "stroke-dashoffset 1500ms cubic-bezier(0.33,1,0.68,1)";
+        line.style.strokeDashoffset = "0";
+        area.style.transition = "opacity 900ms ease 400ms";
+        area.style.opacity = "1";
+      });
+      window.setTimeout(() => (dot.style.opacity = "1"), 1400);
+      kpis.forEach((el) => setKpi(el, true));
+      await wait(3200);
+      // fade booked back out then loop
+      phaseBooked.style.opacity = "0";
+      await wait(500);
+      loop();
+    }
+
+    const start = () => {
+      if (reduce) {
+        showBookedStatic();
+        return;
+      }
+      loop();
+    };
+
+    // Only run when the hero is (or becomes) in view; pause when off-screen.
+    if ("IntersectionObserver" in window && !reduce) {
+      let running = false;
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting && !running) {
+              running = true;
+              start();
+            } else if (!e.isIntersecting && running) {
+              running = false;
+              clearTimers();
+            }
+          });
+        },
+        { threshold: 0.25 },
+      );
+      io.observe(demo);
+    } else {
+      start();
+    }
+  }
+</script>

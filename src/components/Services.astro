@@ -1,0 +1,83 @@
+---
+import { services } from "../config";
+import SectionHeading from "./SectionHeading.astro";
+import Icon from "./Icon.astro";
+---
+
+<section id="services" class="relative py-10 sm:py-14">
+  <div class="container">
+    <SectionHeading overline="What We Offer" title={services.title} align="center" />
+
+    <div class="mt-14 grid gap-5 lg:grid-cols-3">
+      <!-- Core service (highlighted, spans 1 col but visually dominant) -->
+      <article
+        data-reveal
+        class="group relative overflow-hidden rounded-[var(--radius-lg)] border border-primary/40 bg-gradient-to-br from-primary/10 via-surface/40 to-surface/40 p-8 lg:row-span-2"
+      >
+        <div
+          class="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[radial-gradient(circle,var(--glow-primary),transparent_70%)]"
+          aria-hidden="true"
+        >
+        </div>
+        <span
+          class="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary"
+        >
+          <Icon name="spark" class="h-3.5 w-3.5" />
+          {services.core.label}
+        </span>
+        <h3 class="mt-6 text-2xl font-extrabold tracking-tight text-text sm:text-3xl">
+          {services.core.title}
+        </h3>
+        <p class="mt-4 max-w-md text-[15px] leading-relaxed text-muted">
+          {services.core.body}
+        </p>
+
+        <div class="mt-8 grid grid-cols-2 gap-3">
+          {
+            ["High-intent keywords", "Tight ad groups", "Revenue bidding", "Booked-job focus"].map(
+              (tag) => (
+                <span class="flex items-center gap-2 rounded-lg border border-border bg-bg/40 px-3 py-2 text-xs font-medium text-muted">
+                  <Icon name="check" class="h-3.5 w-3.5 text-primary" />
+                  {tag}
+                </span>
+              ),
+            )
+          }
+        </div>
+      </article>
+
+      <!-- Supporting services -->
+      <div class="lg:col-span-2">
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-muted" data-reveal>
+          {services.supportingLabel}
+        </p>
+        <div class="mt-4 grid gap-4 sm:grid-cols-2">
+          {
+            services.supporting.map((s, i) => (
+              <article
+                data-reveal
+                style={`--reveal-delay:${i * 80}ms`}
+                class="group flex gap-4 rounded-[var(--radius)] border border-border bg-surface/50 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40"
+              >
+                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-border bg-bg/60 text-accent transition-colors group-hover:border-accent/40">
+                  <Icon name={s.icon} class="h-5 w-5" />
+                </span>
+                <div>
+                  <h4 class="text-sm font-bold text-text">{s.title}</h4>
+                  <p class="mt-1 text-sm leading-relaxed text-muted">{s.body}</p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+
+        <p
+          data-reveal
+          class="mt-6 rounded-[var(--radius)] border border-dashed border-border bg-surface/30 px-5 py-4 text-sm text-muted"
+        >
+          {services.note}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,39 @@
+---
+/** Consistent section header: optional overline + title + optional lead. */
+interface Props {
+  overline?: string;
+  title: string;
+  lead?: string;
+  align?: "left" | "center";
+  class?: string;
+}
+const { overline, title, lead, align = "center", class: className = "" } = Astro.props;
+const alignCls = align === "center" ? "mx-auto text-center items-center" : "text-left items-start";
+---
+
+<div class={`flex max-w-2xl flex-col ${alignCls} ${className}`}>
+  {
+    overline && (
+      <p
+        data-reveal
+        class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary"
+      >
+        {overline}
+      </p>
+    )
+  }
+  <h2
+    data-reveal
+    style="--reveal-delay:60ms"
+    class="text-3xl font-extrabold tracking-tight sm:text-4xl"
+  >
+    {title}
+  </h2>
+  {
+    lead && (
+      <p data-reveal style="--reveal-delay:120ms" class="mt-4 text-lg text-muted">
+        {lead}
+      </p>
+    )
+  }
+</div>

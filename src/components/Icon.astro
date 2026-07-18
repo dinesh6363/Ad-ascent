@@ -1,0 +1,53 @@
+---
+/**
+ * Inline SVG icon set. All strokes use currentColor so icons inherit the
+ * surrounding text color / brand tokens. Add new icons to `paths` below.
+ *
+ * Props: name (key), class (sizing), plus any passthrough aria attrs.
+ */
+interface Props {
+  name: string;
+  class?: string;
+  [key: string]: unknown;
+}
+const { name, class: className = "h-6 w-6", ...rest } = Astro.props;
+
+const paths: Record<string, string> = {
+  // brand / feature icons
+  search: `<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>`,
+  target: `<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/>`,
+  chart: `<path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m7 14 3-3 3 2 5-6"/>`,
+  data: `<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/>`,
+  shield: `<path d="M12 3 5 6v5c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z"/><path d="m9.5 12 1.8 1.8 3.4-3.6"/>`,
+  bolt: `<path d="M13 2 4 14h6l-1 8 9-12h-6z"/>`,
+  layout: `<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>`,
+  code: `<path d="m8 6-6 6 6 6"/><path d="m16 6 6 6-6 6"/>`,
+  // ui icons
+  check: `<path d="m5 12 4.5 4.5L20 6"/>`,
+  arrow: `<path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>`,
+  "arrow-up-right": `<path d="M7 17 17 7"/><path d="M8 7h9v9"/>`,
+  menu: `<path d="M4 7h16M4 12h16M4 17h16"/>`,
+  close: `<path d="M6 6 18 18M18 6 6 18"/>`,
+  mail: `<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>`,
+  phone: `<path d="M4 4h4l2 5-2.5 1.5a12 12 0 0 0 6 6L15 14l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 2 6a2 2 0 0 1 2-2z"/>`,
+  linkedin: `<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 17v-7"/>`,
+  spark: `<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/>`,
+  sun: `<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>`,
+  moon: `<path d="M20 14.5A8 8 0 1 1 9.5 4 6.5 6.5 0 0 0 20 14.5z"/>`,
+};
+
+const d = paths[name] ?? "";
+---
+
+<svg
+  class={className}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.75"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  {...rest}
+  set:html={d}
+/>

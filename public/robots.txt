@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Astro/@astrojs/sitemap emits sitemap-index.xml at build time.
+Sitemap: https://ad-ascent.com/sitemap-index.xml

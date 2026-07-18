@@ -1,0 +1,84 @@
+---
+import { site, navLinks } from "../config";
+import Logo from "./Logo.astro";
+import Icon from "./Icon.astro";
+
+const year = new Date().getFullYear();
+const hasLinkedIn = !site.linkedinUrl.includes("{{");
+---
+
+<footer class="relative mt-24 border-t border-border">
+  <div class="container py-14">
+    <div class="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+      <div class="max-w-sm">
+        <a href="#home" class="inline-flex" aria-label="Ad-Ascent home">
+          <Logo />
+        </a>
+        <p class="mt-4 text-sm leading-relaxed text-muted">{site.tagline}</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-10 sm:gap-16">
+        <div>
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-muted">
+            Navigate
+          </h3>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            {
+              navLinks.map((l) => (
+                <li>
+                  <a
+                    href={l.href}
+                    class="text-muted transition-colors hover:text-text"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))
+            }
+            <li>
+              <a href="#contact" class="text-muted transition-colors hover:text-text">
+                Book a Call
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-muted">
+            Connect
+          </h3>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li>
+              <a
+                href={hasLinkedIn ? site.linkedinUrl : "#"}
+                target={hasLinkedIn ? "_blank" : undefined}
+                rel={hasLinkedIn ? "noopener noreferrer" : undefined}
+                class="inline-flex items-center gap-2 text-muted transition-colors hover:text-text"
+                aria-label="Ad-Ascent on LinkedIn"
+              >
+                <Icon name="linkedin" class="h-4 w-4" />
+                LinkedIn
+              </a>
+            </li>
+            <li>
+              <a
+                href={`mailto:${site.contactEmail}`}
+                class="inline-flex items-center gap-2 text-muted transition-colors hover:text-text"
+              >
+                <Icon name="mail" class="h-4 w-4" />
+                Email
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="mt-12 flex flex-col gap-2 border-t border-border pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {year} {site.name}. All rights reserved.</p>
+      <p>Google Ads that turn search intent into booked jobs.</p>
+    </div>
+  </div>
+</footer>

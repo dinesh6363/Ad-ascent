@@ -1,0 +1,14 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ad-Ascent">
+  <defs>
+    <linearGradient id="f" x1="2" y1="30" x2="30" y2="2" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2f6bff"/>
+      <stop offset="1" stop-color="#7c5cff"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="7" fill="#0b0d12"/>
+  <rect x="4.5" y="20" width="4" height="8" rx="1.3" fill="url(#f)" opacity="0.55"/>
+  <rect x="11.5" y="14.5" width="4" height="13.5" rx="1.3" fill="url(#f)" opacity="0.8"/>
+  <rect x="18.5" y="9" width="4" height="19" rx="1.3" fill="url(#f)"/>
+  <path d="M5 20.5 L12.5 15.5 L19 17 L28 6.5" stroke="#e7e9ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M23.5 6 L28.5 6 L28.5 11" stroke="#e7e9ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,7 @@
+dist
+.astro
+.vercel
+node_modules
+public/*.svg
+public/*.ico
+package-lock.json

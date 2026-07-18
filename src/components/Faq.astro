@@ -1,0 +1,100 @@
+---
+import { faq } from "../config";
+import SectionHeading from "./SectionHeading.astro";
+import Icon from "./Icon.astro";
+---
+
+<section id="faq" class="relative py-10 sm:py-14">
+  <div class="container">
+    <SectionHeading overline="Questions" title={faq.title} align="center" />
+
+    <div class="mx-auto mt-12 max-w-3xl space-y-3" id="faq-list">
+      {
+        faq.items.map((item, i) => (
+          <details
+            data-reveal
+            style={`--reveal-delay:${i * 60}ms`}
+            class="faq-item group overflow-hidden rounded-[var(--radius)] border border-border bg-surface/50 transition-colors duration-300 open:border-primary/40 hover:border-border-strong"
+            name="faq"
+          >
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-left font-semibold text-text [&::-webkit-details-marker]:hidden">
+              <span>{item.q}</span>
+              <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-border text-muted transition-all duration-300 group-open:rotate-45 group-open:border-primary/50 group-open:text-primary">
+                <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+              </span>
+            </summary>
+            <div class="faq-panel">
+              <p class="px-5 pb-5 pt-0 text-sm leading-relaxed text-muted">{item.a}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  // Progressive enhancement: smooth expand/collapse for <details>.
+  // Without JS the accordion still works natively (just no height animation).
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const items = Array.from(document.querySelectorAll<HTMLDetailsElement>(".faq-item"));
+
+  items.forEach((item) => {
+    const summary = item.querySelector("summary")!;
+    const panel = item.querySelector<HTMLElement>(".faq-panel")!;
+
+    summary.addEventListener("click", (e) => {
+      if (reduce) return; // let native toggle handle it instantly
+      e.preventDefault();
+
+      const isOpen = item.open;
+
+      // Accordion: close siblings first (the name="faq" attr also enforces this
+      // natively in supporting browsers, but we animate them here).
+      if (!isOpen) {
+        items.forEach((other) => {
+          if (other !== item && other.open) collapse(other);
+        });
+      }
+
+      if (isOpen) collapse(item);
+      else expand(item);
+    });
+
+    function expand(el: HTMLDetailsElement) {
+      const p = el.querySelector<HTMLElement>(".faq-panel")!;
+      el.open = true;
+      const h = p.scrollHeight;
+      p.animate(
+        [
+          { height: "0px", opacity: 0 },
+          { height: `${h}px`, opacity: 1 },
+        ],
+        { duration: 320, easing: "cubic-bezier(0.22,1,0.36,1)" },
+      );
+    }
+
+    function collapse(el: HTMLDetailsElement) {
+      const p = el.querySelector<HTMLElement>(".faq-panel")!;
+      const h = p.scrollHeight;
+      const anim = p.animate(
+        [
+          { height: `${h}px`, opacity: 1 },
+          { height: "0px", opacity: 0 },
+        ],
+        { duration: 260, easing: "cubic-bezier(0.22,1,0.36,1)" },
+      );
+      anim.onfinish = () => {
+        el.open = false;
+      };
+    }
+  });
+</script>
+
+<style>
+  .faq-panel {
+    overflow: hidden;
+  }
+</style>

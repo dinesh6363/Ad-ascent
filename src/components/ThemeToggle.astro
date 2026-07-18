@@ -1,0 +1,24 @@
+---
+/**
+ * Light/dark theme toggle. Flips data-theme on <html> and persists to
+ * localStorage. Icon visibility is driven by the `dark:` variant, which
+ * tailwind.config maps to [data-theme="dark"]. Wiring lives in Layout.astro.
+ */
+import Icon from "./Icon.astro";
+interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props;
+---
+
+<button
+  type="button"
+  class={`theme-toggle group grid h-10 w-10 place-items-center rounded-full border border-border bg-surface/60 text-text backdrop-blur transition-colors hover:border-primary/50 ${className}`}
+  aria-label="Toggle light and dark theme"
+  title="Toggle theme"
+>
+  <!-- shown in dark → click to go light -->
+  <Icon name="sun" class="hidden h-5 w-5 dark:block" />
+  <!-- shown in light → click to go dark -->
+  <Icon name="moon" class="block h-5 w-5 dark:hidden" />
+</button>

@@ -1,0 +1,34 @@
+# build output
+dist/
+.output/
+.vercel/
+
+# lighthouse ci
+.lighthouseci/
+
+# dependencies
+node_modules/
+
+# astro
+.astro/
+
+# env (never commit secrets)
+.env
+.env.*
+!.env.example
+
+# logs & os
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# claude code local settings (machine-local)
+.claude/settings.local.json

@@ -1,0 +1,263 @@
+---
+import "@fontsource-variable/inter";
+import "../styles/theme.css";
+import { site, SITE_URL, faq } from "../config";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Ad-Ascent — Google Ads for HVAC Companies | More Qualified Leads",
+  description = site.description,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, SITE_URL).href;
+const ogImage = new URL("/og-image.png", SITE_URL).href;
+
+// --- Structured data -------------------------------------------------------
+const orgLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: site.name,
+  description: site.description,
+  url: SITE_URL,
+  logo: new URL("/logo-mark.svg", SITE_URL).href,
+  image: ogImage,
+  email: site.contactEmail,
+  areaServed: [
+    { "@type": "Country", name: "United States" },
+    { "@type": "AdministrativeArea", name: "Worldwide" },
+  ],
+  serviceType: "Google Ads Management for HVAC companies",
+  slogan: "Turning search intent into booked jobs.",
+  sameAs: [site.linkedinUrl].filter((u) => !u.includes("{{")),
+};
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.items.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Set theme before first paint to avoid a flash of the wrong theme. -->
+    <script is:inline>
+      (function () {
+        try {
+          // Dark is the brand default; light is an explicit, persisted opt-in.
+          var stored = localStorage.getItem("theme");
+          document.documentElement.setAttribute(
+            "data-theme",
+            stored === "light" ? "light" : "dark",
+          );
+        } catch (e) {}
+      })();
+    </script>
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#0b0d12" />
+    <meta name="color-scheme" content="dark light" />
+
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Ad-Ascent — Google Ads for HVAC companies" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+
+    <!-- Without JS the scroll-reveal observer never runs; make all content
+         visible so the site fully works (and is crawlable) without JS. -->
+    <noscript>
+      <style>
+        [data-reveal] {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <slot />
+
+    <script>
+      // ---------------------------------------------------------------------
+      // Global progressive-enhancement scripts. All motion is gated behind
+      // prefers-reduced-motion so the site is fully usable without animation.
+      // ---------------------------------------------------------------------
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      // 0) Theme toggle ---------------------------------------------------
+      const THEME_KEY = "theme";
+      const themeMeta = document.querySelector('meta[name="theme-color"]');
+      const syncThemeColor = () => {
+        if (!themeMeta) return;
+        const bg = getComputedStyle(document.documentElement)
+          .getPropertyValue("--color-bg")
+          .trim();
+        if (bg) themeMeta.setAttribute("content", bg);
+      };
+      syncThemeColor();
+      document.querySelectorAll<HTMLButtonElement>(".theme-toggle").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const current =
+            document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+          const next = current === "light" ? "dark" : "light";
+          document.documentElement.setAttribute("data-theme", next);
+          try {
+            localStorage.setItem(THEME_KEY, next);
+          } catch (e) {
+            /* ignore storage errors */
+          }
+          syncThemeColor();
+        });
+      });
+
+      // 1) Scroll-reveal via IntersectionObserver -------------------------
+      const revealEls = document.querySelectorAll<HTMLElement>("[data-reveal]");
+      if (reduce || !("IntersectionObserver" in window)) {
+        revealEls.forEach((el) => el.classList.add("is-visible"));
+      } else {
+        const io = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+        );
+        revealEls.forEach((el) => io.observe(el));
+      }
+
+      // 2) Count-up counters ----------------------------------------------
+      const counters = document.querySelectorAll<HTMLElement>("[data-count]");
+      const runCounter = (el: HTMLElement) => {
+        const target = parseFloat(el.dataset.count || "0");
+        const decimals = parseInt(el.dataset.decimals || "0", 10);
+        const prefix = el.dataset.prefix || "";
+        const suffix = el.dataset.suffix || "";
+        if (reduce) {
+          el.textContent = prefix + target.toFixed(decimals) + suffix;
+          return;
+        }
+        const duration = 1400;
+        let start: number | null = null;
+        const step = (ts: number) => {
+          if (start === null) start = ts;
+          const p = Math.min((ts - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = prefix + (target * eased).toFixed(decimals) + suffix;
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      };
+      if (counters.length) {
+        const cio = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                runCounter(entry.target as HTMLElement);
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.6 },
+        );
+        counters.forEach((el) => cio.observe(el));
+      }
+
+      // 3) Header state + scroll-spy --------------------------------------
+      const header = document.getElementById("site-header");
+      const spyLinks = Array.from(
+        document.querySelectorAll<HTMLAnchorElement>("[data-spy-link]"),
+      );
+      const sections = spyLinks
+        .map((l) => document.querySelector<HTMLElement>(l.getAttribute("href") || ""))
+        .filter((s): s is HTMLElement => Boolean(s));
+
+      const onScroll = () => {
+        if (header) header.classList.toggle("is-scrolled", window.scrollY > 24);
+      };
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+
+      if (sections.length) {
+        const spy = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const id = entry.target.id;
+                spyLinks.forEach((l) =>
+                  l.classList.toggle(
+                    "is-active",
+                    l.getAttribute("href") === `#${id}`,
+                  ),
+                );
+              }
+            });
+          },
+          { rootMargin: "-45% 0px -50% 0px" },
+        );
+        sections.forEach((s) => spy.observe(s));
+      }
+
+      // 4) Mobile menu ----------------------------------------------------
+      const menuBtn = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const setMenu = (open: boolean) => {
+        if (!menuBtn || !mobileMenu) return;
+        menuBtn.setAttribute("aria-expanded", String(open));
+        mobileMenu.classList.toggle("is-open", open);
+        document.body.style.overflow = open ? "hidden" : "";
+      };
+      menuBtn?.addEventListener("click", () =>
+        setMenu(menuBtn.getAttribute("aria-expanded") !== "true"),
+      );
+      mobileMenu?.querySelectorAll("a").forEach((a) =>
+        a.addEventListener("click", () => setMenu(false)),
+      );
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") setMenu(false);
+      });
+    </script>
+  </body>
+</html>

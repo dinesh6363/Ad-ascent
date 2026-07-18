@@ -1,0 +1,90 @@
+---
+import { navLinks } from "../config";
+import Logo from "./Logo.astro";
+import Button from "./Button.astro";
+import Icon from "./Icon.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
+>
+  <div class="container">
+    <nav
+      class="mt-3 flex items-center justify-between rounded-full border border-transparent px-4 py-2.5 transition-all duration-300 [.is-scrolled_&]:border-border [.is-scrolled_&]:bg-bg/70 [.is-scrolled_&]:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6)] [.is-scrolled_&]:backdrop-blur-xl"
+      aria-label="Primary"
+    >
+      <a href="#home" class="flex items-center" aria-label="Ad-Ascent home">
+        <Logo />
+      </a>
+
+      <!-- Desktop nav -->
+      <ul class="hidden items-center gap-1 md:flex">
+        {
+          navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                data-spy-link
+                class="relative rounded-full px-4 py-2 text-sm font-medium text-muted transition-colors hover:text-text [&.is-active]:text-text"
+              >
+                <span
+                  class="absolute inset-x-3 -bottom-0.5 h-px origin-center scale-x-0 bg-gradient-to-r from-primary to-accent opacity-0 transition-all duration-300 [.is-active_&]:scale-x-100 [.is-active_&]:opacity-100"
+                  aria-hidden="true"
+                />
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="flex items-center gap-2">
+        <ThemeToggle />
+        <Button href="#contact" size="md" class="hidden sm:inline-flex" icon="arrow">
+          Book a Call
+        </Button>
+
+        <!-- Mobile menu toggle (icons swap on aria-expanded) -->
+        <button
+          id="menu-toggle"
+          class="group relative grid h-10 w-10 place-items-center rounded-full border border-border bg-surface/60 text-text backdrop-blur transition-colors hover:border-primary/50 md:hidden"
+          aria-label="Toggle menu"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <Icon name="menu" class="h-5 w-5 group-aria-[expanded=true]:hidden" />
+          <Icon name="close" class="hidden h-5 w-5 group-aria-[expanded=true]:block" />
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Mobile slide-in menu -->
+<div
+  id="mobile-menu"
+  class="invisible fixed inset-0 z-40 opacity-0 transition-[opacity,visibility] duration-300 [&.is-open]:visible [&.is-open]:opacity-100 md:hidden"
+  aria-hidden="true"
+>
+  <div class="absolute inset-0 bg-bg/90 backdrop-blur-xl"></div>
+  <nav
+    class="relative flex h-full translate-y-4 flex-col justify-center gap-2 px-8 transition-transform duration-300 [.is-open_&]:translate-y-0"
+    aria-label="Mobile"
+  >
+    {
+      navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="border-b border-border py-4 text-2xl font-semibold text-text transition-colors hover:text-primary"
+        >
+          {link.label}
+        </a>
+      ))
+    }
+    <Button href="#contact" size="lg" class="mt-6 w-full" icon="arrow">
+      Book a Call
+    </Button>
+  </nav>
+</div>

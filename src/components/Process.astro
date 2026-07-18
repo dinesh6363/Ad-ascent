@@ -1,0 +1,39 @@
+---
+import { process } from "../config";
+import SectionHeading from "./SectionHeading.astro";
+---
+
+<section id="how-we-work" class="relative py-10 sm:py-14">
+  <div class="container">
+    <SectionHeading overline="Our Process" title={process.title} align="center" />
+
+    <ol class="relative mt-16 grid gap-8 md:grid-cols-4 md:gap-5">
+      <!-- connecting line (desktop) -->
+      <div
+        class="pointer-events-none absolute left-0 right-0 top-6 hidden h-px bg-gradient-to-r from-transparent via-border-strong to-transparent md:block"
+        aria-hidden="true"
+      >
+      </div>
+
+      {
+        process.steps.map((step, i) => (
+          <li
+            data-reveal
+            style={`--reveal-delay:${i * 110}ms`}
+            class="group relative"
+          >
+            <div class="flex items-center gap-4 md:block">
+              <span class="relative z-10 grid h-12 w-12 shrink-0 place-items-center rounded-full border border-border-strong bg-surface text-sm font-bold text-primary transition-all duration-300 group-hover:border-primary group-hover:text-white group-hover:shadow-[0_0_0_5px_rgba(47,107,255,0.12)]">
+                {step.n}
+              </span>
+              <h3 class="text-lg font-bold text-text md:mt-5">{step.title}</h3>
+            </div>
+            <p class="mt-2 pl-16 text-sm leading-relaxed text-muted md:pl-0">
+              {step.body}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

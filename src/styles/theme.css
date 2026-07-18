@@ -1,0 +1,275 @@
+/* =============================================================================
+   Ad-Ascent — Theme tokens & base styles
+   -----------------------------------------------------------------------------
+   ALL brand colors are declared here as CSS custom properties and consumed
+   everywhere through Tailwind semantic tokens (see tailwind.config.mjs).
+   To rebrand the entire site, edit the values in :root below — nothing else.
+   ============================================================================= */
+
+/* Tailwind layers. We host the directives here (astro.config sets
+   applyBaseStyles:false) so this file is the single global-CSS entrypoint. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,
+:root[data-theme="dark"] {
+  /* Surfaces */
+  --color-bg: #0b0d12;
+  --color-surface: #14171f;
+  --color-surface-2: #1b1f2a;
+
+  /* Text */
+  --color-text: #e7e9ee;
+  --color-muted: #9aa3b2;
+
+  /* Brand */
+  --color-primary: #2a63f5; /* brand blue (from PDF accents, nudged to pass AA contrast with white) */
+  --color-primary-hover: #1f57e6;
+  --color-accent: #7c5cff; /* purple, from the PDF logo glyph */
+
+  /* Status */
+  --color-danger: #ef4444; /* the red ✕ pain-point icons */
+  --color-success: #22c55e;
+
+  /* Lines & structure */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.14);
+
+  /* Effects */
+  --grid-line: rgba(255, 255, 255, 0.035);
+  --glow-primary: rgba(47, 107, 255, 0.35);
+  --glow-accent: rgba(124, 92, 255, 0.3);
+
+  /* Geometry */
+  --radius: 14px;
+  --radius-lg: 20px;
+  --maxw: 1200px;
+
+  color-scheme: dark;
+}
+
+/* Optional light theme — override the same tokens. Trivial to enable a toggle:
+   add data-theme="light" on <html>. Structure is ready. */
+:root[data-theme="light"] {
+  --color-bg: #ffffff;
+  --color-surface: #f7f8fa;
+  --color-surface-2: #eef1f6;
+  --color-text: #0b0d12;
+  --color-muted: #55617a;
+  --color-primary: #2a63f5; /* matches dark theme; passes AA contrast with white */
+  --color-primary-hover: #1f57e6;
+  --color-accent: #7c5cff;
+  --color-danger: #dc2626;
+  --color-success: #16a34a;
+  --color-border: rgba(11, 13, 18, 0.1);
+  --color-border-strong: rgba(11, 13, 18, 0.16);
+  --grid-line: rgba(11, 13, 18, 0.04);
+  --glow-primary: rgba(47, 107, 255, 0.22);
+  --glow-accent: rgba(124, 92, 255, 0.2);
+  color-scheme: light;
+}
+
+/* ------------------------------- Base ------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* Offset anchor targets so the sticky header never overlaps section titles. */
+  scroll-padding-top: 88px;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family:
+    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Ambient page background: subtle grid + radial brand glows. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 100% 60% at 50% 0%, #000 40%, transparent 80%);
+  pointer-events: none;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  background:
+    radial-gradient(60% 45% at 78% -5%, var(--glow-accent), transparent 60%),
+    radial-gradient(55% 40% at 15% 5%, var(--glow-primary), transparent 60%);
+  pointer-events: none;
+}
+
+/* ------------------------- Reusable utilities ---------------------------- */
+
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-inline: 28px;
+  }
+}
+
+/* Gradient text used for the brand-highlighted words. */
+.text-gradient {
+  background: linear-gradient(100deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Skip link for keyboard users. */
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 200;
+  padding: 10px 16px;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 10px;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+/* --------------------------- Scroll reveal ------------------------------- */
+/* Elements tagged with [data-reveal] start hidden and animate in when the
+   IntersectionObserver adds .is-visible. Staggering is done with
+   --reveal-delay inline. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ------------------------------ Form fields ------------------------------ */
+
+.form-input {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding: 0.7rem 0.9rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
+}
+.form-input::placeholder {
+  color: var(--color-muted);
+  opacity: 0.7;
+}
+.form-input:hover {
+  border-color: var(--color-border-strong);
+}
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(47, 107, 255, 0.18);
+}
+.form-input.is-invalid {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+/* Style the select dropdown options for dark UIs where supported. */
+.form-input option {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.form-error {
+  min-height: 1rem;
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--color-danger);
+}
+
+/* ------------------------ Reduced-motion policy -------------------------- */
+/* Required: kill all motion when the user asks for it. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
