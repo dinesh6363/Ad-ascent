@@ -61,7 +61,7 @@ export const hero = {
   beliefLine2Lead: "should be ",
   beliefLine2Highlight: "obvious online.",
   observation: "Good businesses already know how to earn trust.",
-  help: "We help make that trust visible — from the first Google search to the moment a customer chooses you.",
+  help: "We help make that trust visible - from the first Google search to the moment a customer chooses you.",
 } as const;
 
 /* --------------------------------- Why ----------------------------------- */
