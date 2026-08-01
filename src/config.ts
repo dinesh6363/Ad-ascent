@@ -1,27 +1,27 @@
 /* =============================================================================
    Ad-Ascent — Site configuration (single source of truth)
    -----------------------------------------------------------------------------
-   Every swappable value and every repeated content block lives here and is
-   imported by the components. No magic strings scattered across markup.
+   All copy + links live here and are imported by the components.
+   Source of truth for wording: updated v2.4.
    ============================================================================= */
 
-/** Production URL — used for canonical, Open Graph, sitemap. Change in ONE place. */
+/** Production URL — canonical / OG / sitemap. Change in ONE place. */
 export const SITE_URL = "https://ad-ascent.com";
 
 export const site = {
   name: "Ad-Ascent",
-  tagline: "Modern digital services. Clean and professional.",
+  tagline: "Making the trust you've earned offline obvious online.",
   url: SITE_URL,
   /** Form submissions are emailed here (see src/pages/api/contact.ts). */
   contactEmail: "info@ad-ascent.com",
   /** Verified sending address on the ad-ascent.com domain in Resend. */
   fromEmail: "Ad-Ascent <noreply@ad-ascent.com>",
   description:
-    "Ad-Ascent runs Google Ads for HVAC companies — turning high-intent searches into booked jobs with sharp campaign structure, conversion tracking, and relentless optimization.",
+    "Ad-Ascent helps trustworthy home service businesses become equally trustworthy online — making the trust you've earned offline obvious, from the first Google search to the moment a customer chooses you.",
   whatsapp: {
-    number: "917014979569", // +91 70149 79569, no + or spaces for wa.me
+    number: "919057433314", // +91 90574 33314, no + or spaces for wa.me
     defaultMessage:
-      "Hi Ad-Ascent, I'm interested in getting more qualified leads for my HVAC business through Google Ads.",
+      "Hi Ad-Ascent, I'd like to start a conversation about my home service business.",
   },
   linkedinUrl: "{{LINKEDIN_URL}}", // TODO: replace with real LinkedIn URL
 } as const;
@@ -33,20 +33,23 @@ export const whatsappHref = `https://wa.me/${site.whatsapp.number}?text=${encode
 
 /** Header nav — anchor links that smooth-scroll to sections on the same page. */
 export const navLinks = [
-  { label: "Services", href: "#services" },
-  { label: "How We Work", href: "#how-we-work" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Why", href: "#why" },
+  { label: "How", href: "#how" },
+  { label: "Team", href: "#team" },
+  { label: "Questions", href: "#questions" },
 ] as const;
+
+/** The single primary action. */
+export const ctaLink = { label: "Let's Talk", href: "#contact" } as const;
 
 /** Section ids observed by the scroll-spy (order matters). */
 export const spySections = [
   "home",
-  "problem",
-  "focus",
   "why",
-  "how-we-work",
-  "services",
-  "faq",
+  "how",
+  "team",
+  "conversation",
+  "questions",
   "contact",
 ] as const;
 
@@ -54,165 +57,242 @@ export const spySections = [
 
 export const hero = {
   eyebrow: "Welcome to Ad-Ascent",
-  titleLead: "Google Ads That Bring More Qualified Leads to Your ",
-  titleHighlight: "HVAC Business.",
-  subhead:
-    "We help HVAC companies turn high-intent Google searches into booked jobs — not just clicks.",
-  primaryCta: { label: "Book a Strategy Call", href: "#contact" },
-  secondaryCta: { label: "See How We Work", href: "#how-we-work" },
-  /** KPI cards in the faux dashboard — value counts up when in view. */
-  kpis: [
-    { label: "Cost / Lead", value: 38, prefix: "$", suffix: "", trend: "down" },
-    { label: "Booked Jobs", value: 214, prefix: "", suffix: "", trend: "up" },
-    { label: "Conversion Rate", value: 23.8, suffix: "%", decimals: 1, trend: "up" },
-  ],
-  /** Typewriter query used by the signature search→ad→booked animation. */
-  searchQuery: "hvac repair near me",
-} as const;
-
-/* -------------------------------- Problem -------------------------------- */
-
-export const problem = {
-  title: "Running Google Ads But Not Getting Enough Jobs?",
-  lead: "Many HVAC businesses waste advertising budget because of:",
-  points: [
-    "Poor campaign structure",
-    "Weak landing pages",
-    "Missing conversion tracking",
-    "No optimization",
-    "No visibility into what actually generates revenue",
-  ],
-} as const;
-
-/* --------------------------------- Focus --------------------------------- */
-
-export const focus = {
-  overline: "We Focus On One Thing",
-  title: "Turning Search Intent Into Booked Jobs",
-  cards: [
-    {
-      icon: "search",
-      title: "Google Ads",
-      body: "Capture high-intent searches.",
-    },
-    {
-      icon: "target",
-      title: "Conversion Optimisation",
-      body: "Turn more visitors into phone calls and lead form submissions.",
-    },
-    {
-      icon: "chart",
-      title: "Performance Tracking",
-      body: "Know exactly where your leads come from.",
-    },
-  ],
-  improveNote: "Improve",
+  beliefLine1: "The trust you've earned offline",
+  beliefLine2Lead: "should be ",
+  beliefLine2Highlight: "obvious online.",
+  observation: "Good businesses already know how to earn trust.",
+  help: "We help make that trust visible — from the first Google search to the moment a customer chooses you.",
 } as const;
 
 /* --------------------------------- Why ----------------------------------- */
 
 export const why = {
-  title: "Why Ad-Ascent?",
-  cards: [
+  overline: "Why we started",
+  heading: "Digital presence doesn't always reflect the actual business.",
+  observations: [
     {
-      icon: "data",
-      title: "Data First",
-      body: "Every decision backed by data.",
+      title: "Trust takes years to build. Visitors decide in seconds.",
+      body: "Businesses spend years earning trust. The stories, reviews, experienced people and reputation behind that trust often remain invisible to someone visiting for the first time. Yet those first few seconds shape whether they stay or leave.",
     },
     {
-      icon: "shield",
-      title: "Transparent",
-      body: "No long contracts. No hidden fees.",
+      title: "Customers only see fragments of your business.",
+      body: "Customers never experience your business all at once. They arrive through one search, land on one page and make a judgement from one small part of the whole. Every page should strengthen their confidence, not leave them guessing.",
     },
     {
-      icon: "bolt",
-      title: "Performance",
-      body: "Focused on qualified leads, not vanity metrics.",
+      title: "Customers experience different versions of your business.",
+      body: "Customers don't separate your ads, website, blogs, visuals and reviews. They experience one business. Every touchpoint should reinforce the same story.",
+    },
+    {
+      title: "Businesses evolve. Digital presence doesn't.",
+      body: "Your business keeps learning. New reviews appear, better processes emerge, your team gains experience. Your digital presence should evolve alongside it, not slowly drift out of date.",
     },
   ],
+  closing:
+    "Closing that gap isn't about adding more marketing. It's about helping every part of your digital presence work together.",
+  bridge: "That's exactly why Ad-Ascent exists.",
 } as const;
 
-/* ----------------------------- How We Work ------------------------------- */
+/* --------------------------------- How ----------------------------------- */
 
-export const process = {
-  title: "How We Work",
-  steps: [
-    { n: "01", title: "Discovery", body: "Understand your business." },
-    { n: "02", title: "Audit", body: "Review campaigns, website and tracking." },
-    { n: "03", title: "Optimize", body: "Improve campaigns and landing pages." },
-    { n: "04", title: "Grow", body: "Continuous testing and optimization." },
-  ],
-} as const;
-
-/* -------------------------------- Services ------------------------------- */
-
-export const services = {
-  title: "Services",
-  core: {
-    label: "Core Service",
-    title: "Google Ads Management",
-    body: "The engine. Search campaigns engineered around high-intent HVAC keywords, tight ad groups, and revenue-focused bidding — built to book jobs.",
+export const how = {
+  overline: "How we close that gap",
+  heading: "Customer Acquisition System",
+  intro:
+    "Google Ads, websites, content writing, SEO, analytics and automation are different parts of the same customer acquisition system.",
+  intro2: "Every part should help a customer move from searching to choosing your business.",
+  diagram: {
+    left: {
+      label: "Customer's Journey",
+      tag: "Google Ads · SEO",
+      steps: ["Needs a service", "Searches for a competent provider", "Finds your business"],
+    },
+    right: {
+      label: "Business's Reality",
+      tag: "Website Development",
+      steps: [
+        "A trustworthy business exists",
+        "Makes that trust visible online",
+        "Customers discover you",
+      ],
+    },
+    converge: "Customer chooses you",
+    learn: {
+      title: "Business learns",
+      body: "We track what happens and understand what matters.",
+      tag: "Analytics & Tracking",
+    },
+    improve: {
+      title: "Optimise & improve",
+      body: "We improve campaigns, website and customer experience.",
+      tag: "Optimisation & Automation",
+    },
   },
-  supportingLabel: "Supporting Services",
-  supporting: [
+  philosophy: [
     {
-      icon: "layout",
-      title: "Landing Page Optimisation",
-      body: "Pages built to convert clicks into calls and form fills.",
+      title: "Attract the Right Customer",
+      tag: "Ads · SEO",
+      lines: [
+        "Not every click creates a customer, so we optimise for finding the right conversations.",
+        "Someone looking for emergency AC repair is fundamentally different from someone researching a replacement system - treating them the same wastes attention, budget and learning.",
+      ],
     },
     {
-      icon: "code",
-      title: "Website Development & Management",
-      body: "Fast, clean sites when your current one holds leads back.",
+      title: "Earn the Right to Be Chosen",
+      tag: "Website · Content writing",
+      lines: [
+        "Getting found is only half the job.",
+        "Once someone finds you, your website has one responsibility - reduce uncertainty and build confidence.",
+      ],
     },
     {
-      icon: "chart",
-      title: "Analytics & Tracking",
-      body: "Conversion tracking that ties spend to booked revenue.",
+      title: "Learn From Every Interaction",
+      tag: "Tracking & Analytics",
+      lines: [
+        "Every interaction contains information about customer behaviour, search intent and trust.",
+        "Tracking simply reveals which searches, pages and campaigns are consistently creating booked jobs.",
+      ],
     },
     {
-      icon: "search",
-      title: "SEO",
-      body: "Organic visibility that compounds alongside paid.",
+      title: "Improve the Entire System",
+      tag: "Optimisation & Automation",
+      lines: [
+        "Small improvements, measured over time, compound into better customer experience, lower acquisition costs, higher conversion rates and more booked jobs.",
+        "That's why optimisation isn't a separate service - it's how the entire system becomes smarter over time.",
+      ],
     },
   ],
-  note: "These are available when needed — not sold as standalone services.",
+  closing: "When every part of the system improves, your business naturally follows.",
 } as const;
 
-/* ---------------------------------- FAQ ---------------------------------- */
+/* --------------------------------- Team ---------------------------------- */
 
-export const faq = {
-  title: "FAQ",
+export const team = {
+  overline: "The Team",
+  transitionLead: "Ad-Ascent is new.",
+  transitionEmphasis: "The way we work isn't.",
+  intro:
+    "Behind every recommendation is a small team with different areas of expertise, but a shared way of thinking.",
+  members: [
+    {
+      name: "Animesh",
+      initials: "AN",
+      photo: "/team/animesh.jpg",
+      role: "Research, Strategy & Content",
+      quote: "Researches businesses until he understands what makes customers trust them.",
+    },
+    {
+      name: "Dinesh",
+      initials: "DI",
+      photo: "/team/dinesh.jpg",
+      role: "Website Development & Design",
+      quote: "Builds websites that remove uncertainty instead of adding decoration.",
+    },
+    {
+      name: "Abhishek",
+      initials: "AB",
+      photo: "/team/abhishek.jpg",
+      role: "Ads & Optimization",
+      quote: "Turns search intent into profitable Google Ads campaigns.",
+    },
+  ],
+  experience: [
+    { value: "$1M+", label: "in ad spend managed" },
+    { value: "100+", label: "website projects" },
+  ],
+  conclusion: "Every recommendation we make follows the same philosophy you've just seen.",
+} as const;
+
+/* ---------------------------- First Conversation ------------------------- */
+
+export const conversation = {
+  overline: "The First Conversation",
+  opening: "Everything begins with a conversation.",
+  steps: [
+    {
+      title: "Start the conversation",
+      body: "Begin with a simple conversation about your business.",
+    },
+    {
+      title: "Build understanding",
+      emphasis: true,
+      body: "Discover how customers find - and choose - you today. This is where we spend the most time.",
+      questions: [
+        "What is your perspective on your business?",
+        "Where is your business today, and where do you think it's headed?",
+        "Where do you want it to be?",
+      ],
+    },
+    {
+      title: "Identify the next priority",
+      body: "We'll identify what's limiting growth - and what to improve first.",
+    },
+    {
+      title: "Choose the next step",
+      body: "Move forward only if we're the right fit.",
+    },
+  ],
+  conclusion: "Whether we work together or not, you'll leave with a clearer understanding of what comes next.",
+  belief: "Clarity comes before commitment.",
+} as const;
+
+/* ------------------------- Questions (FAQ) ------------------------------- */
+
+export const questions = {
+  overline: "Frequently Asked Questions",
+  heading: "Questions you might still have",
   items: [
     {
-      q: "Do you only work with HVAC companies?",
-      a: "Currently we're only accepting 🏠 HVAC companies. Soon expanding our digital services for 🔧 Plumbing companies and ⚡ Electricians.",
+      q: "Everything isn't perfect… but it's working. Why should I risk changing it?",
+      a: "We don't begin by changing things. We begin by understanding them. Our job is to understand what's already helping your business, protect it, and improve only where it genuinely makes a difference. The goal isn't change — it's helping your business move forward without disrupting what's already working.",
+    },
+    {
+      q: "How do I know you're recommending what's best for my business — and not just trying to sell me another service?",
+      a: "We don't know what's best for your business — not before we've understood it. That's why the first conversation isn't about deciding whether you need Google Ads, a new website, or anything else. It's about understanding how your business attracts customers today, what's already working, and where the biggest opportunities actually are. Our recommendations should fit your business, not our service list.",
+    },
+    {
+      q: "Every agency says they're different. Why should I believe you?",
+      a: "You shouldn't believe us because we say we're different. Judge us by the way we think, the questions we ask, and the recommendations we make. We'd rather earn your trust through the experience than ask for it upfront.",
+    },
+    {
+      q: "What if, after looking at my business, you genuinely think you can't help me?",
+      a: "Not every business needs every service, and we're comfortable saying that. If we don't think we're the right fit, we'd rather leave you with clarity than take on work we can't stand behind. The right partnership starts with honesty — not obligation.",
+    },
+    {
+      q: "I have a business to run. Am I about to create another full-time job for myself?",
+      a: "No. The goal is to reduce complexity — not add to it. We'll need your input where it matters, especially at the beginning. After that, you'll stay informed through clear, concise updates, while conversations are reserved for decisions that genuinely benefit from discussion. Working together should free up your attention — not compete for it.",
+    },
+    {
+      q: "We're already working with someone. Does that mean we can't work together?",
+      a: "Not at all. If your current team is doing something well, we'll build on it — not replace it. The goal is to strengthen your business, not replace the people already helping it.",
+    },
+    {
+      q: "If we decide to do this… what should I realistically expect?",
+      a: "You should expect steady progress — not overnight promises. Some improvements happen quickly, others take time, depending on where your business is today. What you should always expect is clarity on what we're doing, why we're doing it, and whether it's making a measurable difference. Our goal isn't just better marketing — it's better business outcomes.",
+    },
+    {
+      q: "How does all of this actually work — pricing, payments, the practical stuff?",
+      a: "Once we've understood your business and agreed on the scope of work, we'll put everything into a clear proposal — what we'll be working on, how we'll work together, timelines, pricing, and payment. Nothing starts until we're both clear on the plan. The practical side should feel just as straightforward as the work itself.",
     },
     {
       q: "Do you require long-term contracts?",
-      a: "No. We prefer to work on a month-to-month basis. If you like our services, we renew our contract.",
+      a: "No. We'd rather continue working together because the partnership is creating value — not because a contract says you have to.",
     },
     {
-      q: "Do you work with businesses outside the US?",
-      a: "Yes.",
-    },
-    {
-      q: "What makes Ad-Ascent different from other marketing agencies?",
-      a: "We don't try to be everything to everyone. We focus on helping home service businesses (HVAC companies) generate more booked jobs through Google Ads. Every recommendation we make — from campaign optimisation to landing page improvements and conversion tracking — is measured against one goal: generating more qualified leads.",
-    },
-    {
-      q: "Do you build websites?",
-      a: "Yes, when it's necessary to improve lead generation.",
+      q: "Why only home service businesses?",
+      a: "Because depth matters. By focusing on one industry, we spend less time learning how the business works and more time improving how it grows.",
     },
   ],
 } as const;
 
-/* -------------------------------- Contact -------------------------------- */
+/* -------------------------- Final CTA — contact -------------------------- */
 
 export const contact = {
-  title: "Ready to generate more qualified leads?",
-  subtitle: "Book a strategy call.",
-  blurb:
-    "Tell us about your HVAC business and where your Google Ads stand today. We'll reply with a clear, no-pressure plan to turn more searches into booked jobs.",
-  budgetOptions: ["< $1k", "$1k–3k", "$3k–10k", "$10k+"],
+  closingLead: "Whenever you're ready,",
+  closingHighlight: "we'll be here.",
+  points: [
+    "We'd rather earn your trust through results than ask for it upfront.",
+    "Technology should make your business feel more personal—not less.",
+    "Continuous learning—not one-time redesigns.",
+  ],
+  buttonLabel: "Start the Conversation",
 } as const;

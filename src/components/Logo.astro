@@ -1,64 +1,11 @@
 ---
 /**
- * Ad-Ascent wordmark — original inline SVG.
- * An angular "A" / ascent peak mark + the wordmark.
- * Fully themeable: the mark uses the --color-primary / --color-accent gradient;
- * the wordmark uses --color-text so it flips with the light/dark theme.
- *
- * Props:
- *  - variant: "full" (mark + wordmark) | "mark" (mark only)
- *  - class:   extra classes for sizing/positioning
+ * Ad-Ascent wordmark — plain text, the full name in the brand gradient.
  */
 interface Props {
-  variant?: "full" | "mark";
   class?: string;
 }
-const { variant = "full", class: className = "" } = Astro.props;
-// Unique gradient id so multiple instances on the page don't collide.
-const gid = `aa-grad-${Math.random().toString(36).slice(2, 8)}`;
+const { class: className = "" } = Astro.props;
 ---
 
-{
-  variant === "mark" ? (
-    <svg
-      class={className}
-      viewBox="0 0 64 64"
-      role="img"
-      aria-label="Ad-Ascent"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <defs>
-        <linearGradient id={gid} x1="6" y1="56" x2="58" y2="8" gradientUnits="userSpaceOnUse">
-          <stop stop-color="var(--color-primary)" />
-          <stop offset="1" stop-color="var(--color-accent)" />
-        </linearGradient>
-      </defs>
-      <path d="M32 7 L18 56 L6 56 Z" fill={`url(#${gid})`} />
-      <path d="M32 7 L58 56 L46 56 Z" fill={`url(#${gid})`} />
-      <path d="M22 41 L42 41 L42 46 L22 46 Z" fill={`url(#${gid})`} />
-    </svg>
-  ) : (
-    <span class={`inline-flex items-center gap-2.5 ${className}`}>
-      <svg
-        class="h-7 w-7 shrink-0"
-        viewBox="0 0 64 64"
-        role="img"
-        aria-label="Ad-Ascent logo"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <linearGradient id={gid} x1="6" y1="56" x2="58" y2="8" gradientUnits="userSpaceOnUse">
-            <stop stop-color="var(--color-primary)" />
-            <stop offset="1" stop-color="var(--color-accent)" />
-          </linearGradient>
-        </defs>
-        <path d="M32 7 L18 56 L6 56 Z" fill={`url(#${gid})`} />
-        <path d="M32 7 L58 56 L46 56 Z" fill={`url(#${gid})`} />
-        <path d="M22 41 L42 41 L42 46 L22 46 Z" fill={`url(#${gid})`} />
-      </svg>
-      <span class="text-[1.15rem] font-bold tracking-tight text-text">Ad-Ascent</span>
-    </span>
-  )
-}
+<span class={`text-gradient text-[1.2rem] font-bold tracking-tight ${className}`}>Ad-Ascent</span>

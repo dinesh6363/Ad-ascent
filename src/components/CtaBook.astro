@@ -1,178 +1,60 @@
 ---
 import { contact, site } from "../config";
 import Icon from "./Icon.astro";
-
-const trust = [
-  "Month-to-month — no long contracts",
-  "HVAC-focused specialists",
-  "Every recommendation measured against booked jobs",
-];
 ---
 
-<section id="contact" class="relative py-10 sm:py-14">
+<section id="contact" class="relative py-16">
   <div class="container">
-    <div
-      class="relative overflow-hidden rounded-[var(--radius-lg)] border border-border-strong bg-surface/40 p-6 sm:p-10 lg:p-14"
-    >
-      <!-- ambient glow -->
-      <div
-        class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[radial-gradient(circle,var(--glow-accent),transparent_70%)]"
-        aria-hidden="true"
-      >
-      </div>
-      <div
-        class="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[radial-gradient(circle,var(--glow-primary),transparent_70%)]"
-        aria-hidden="true"
-      >
-      </div>
+    <div class="relative overflow-hidden rounded-[var(--radius-lg)] border border-border-strong bg-surface/40 p-6 sm:p-10 lg:p-14">
+      <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[radial-gradient(circle,var(--glow-accent),transparent_70%)]" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[radial-gradient(circle,var(--glow-primary),transparent_70%)]" aria-hidden="true"></div>
 
       <div class="relative grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-14">
-        <!-- Copy -->
-        <div class="max-w-md">
-          <h2
-            data-reveal
-            class="text-3xl font-extrabold tracking-tight sm:text-4xl"
-          >
-            {contact.title}
+        <div class="flex max-w-md flex-col">
+          <h2 data-reveal class="text-3xl font-extrabold leading-tight tracking-tight text-text sm:text-4xl">
+            {contact.closingLead} <span class="text-gradient">{contact.closingHighlight}</span>
           </h2>
-          <p data-reveal style="--reveal-delay:60ms" class="mt-3 text-lg font-semibold text-primary">
-            {contact.subtitle}
-          </p>
-          <p data-reveal style="--reveal-delay:120ms" class="mt-5 text-[15px] leading-relaxed text-muted">
-            {contact.blurb}
-          </p>
 
-          <ul data-reveal style="--reveal-delay:180ms" class="mt-8 space-y-3">
+          <ul data-reveal style="--reveal-delay:120ms" class="mt-8 space-y-4 border-l-2 border-primary/30 pl-5">
             {
-              trust.map((t) => (
-                <li class="flex items-start gap-3 text-sm text-text">
-                  <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-success/15 text-success">
-                    <Icon name="check" class="h-3.5 w-3.5" />
-                  </span>
-                  {t}
-                </li>
+              contact.points.map((t) => (
+                <li class="text-sm leading-relaxed text-text">{t}</li>
               ))
             }
           </ul>
 
-          <a
-            href={`mailto:${site.contactEmail}`}
-            class="mt-8 inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-text"
-          >
+          <a href={`mailto:${site.contactEmail}`} class="mt-8 inline-flex items-center gap-2 self-start text-sm text-muted transition-colors hover:text-text lg:mt-auto lg:mb-4">
             <Icon name="mail" class="h-4 w-4" />
             {site.contactEmail}
           </a>
         </div>
 
-        <!-- Form -->
         <div data-reveal style="--reveal-delay:120ms">
-          <form
-            id="contact-form"
-            method="post"
-            action="/api/contact"
-            class="grid grid-cols-1 gap-4 sm:grid-cols-2"
-          >
-            <!-- Honeypot (hidden from humans; bots fill it → rejected) -->
+          <form id="contact-form" method="post" action="/api/contact" class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div class="absolute -left-[9999px]" aria-hidden="true">
-              <label>
-                Company website
-                <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
-              </label>
+              <label>Company website<input type="text" name="company_website" tabindex="-1" autocomplete="off" /></label>
             </div>
 
-            <div class="sm:col-span-1">
-              <label for="name" class="mb-1.5 block text-xs font-medium text-muted">
-                Name <span class="text-danger">*</span>
-              </label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                required
-                autocomplete="name"
-                placeholder="Jane Cooper"
-                class="form-input"
-              />
+            <div>
+              <label for="name" class="mb-1.5 block text-xs font-medium text-muted">Name <span class="text-danger">*</span></label>
+              <input id="name" name="name" type="text" required autocomplete="name" class="form-input" />
               <p class="form-error" data-error-for="name"></p>
             </div>
 
-            <div class="sm:col-span-1">
-              <label for="email" class="mb-1.5 block text-xs font-medium text-muted">
-                Email <span class="text-danger">*</span>
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                autocomplete="email"
-                placeholder="jane@company.com"
-                class="form-input"
-              />
+            <div>
+              <label for="company" class="mb-1.5 block text-xs font-medium text-muted">Company <span class="text-muted/60">(optional)</span></label>
+              <input id="company" name="company" type="text" autocomplete="organization" class="form-input" />
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="email" class="mb-1.5 block text-xs font-medium text-muted">Email <span class="text-danger">*</span></label>
+              <input id="email" name="email" type="email" required autocomplete="email" class="form-input" />
               <p class="form-error" data-error-for="email"></p>
             </div>
 
-            <div class="sm:col-span-1">
-              <label for="phone" class="mb-1.5 block text-xs font-medium text-muted">
-                WhatsApp number <span class="text-muted/60">(optional)</span>
-              </label>
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                autocomplete="tel"
-                placeholder="+1 555 123 4567"
-                class="form-input"
-              />
-            </div>
-
-            <div class="sm:col-span-1">
-              <label for="company" class="mb-1.5 block text-xs font-medium text-muted">
-                Company <span class="text-muted/60">(optional)</span>
-              </label>
-              <input
-                id="company"
-                name="company"
-                type="text"
-                autocomplete="organization"
-                placeholder="Comfort Air HVAC"
-                class="form-input"
-              />
-            </div>
-
             <div class="sm:col-span-2">
-              <label for="budget" class="mb-1.5 block text-xs font-medium text-muted">
-                Monthly ad budget <span class="text-muted/60">(optional)</span>
-              </label>
-              <div class="relative">
-                <select id="budget" name="budget" class="form-input appearance-none pr-10">
-                  <option value="">Select a range…</option>
-                  {contact.budgetOptions.map((o) => <option value={o}>{o}</option>)}
-                </select>
-                <svg
-                  class="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  aria-hidden="true"
-                >
-                  <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </div>
-            </div>
-
-            <div class="sm:col-span-2">
-              <label for="message" class="mb-1.5 block text-xs font-medium text-muted">
-                Message <span class="text-danger">*</span>
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows="4"
-                required
-                placeholder="Tell us about your business and where your Google Ads stand today."
-                class="form-input resize-y"></textarea>
+              <label for="message" class="mb-1.5 block text-xs font-medium text-muted">Tell us about your business <span class="text-danger">*</span></label>
+              <textarea id="message" name="message" rows="4" required class="form-input resize-y"></textarea>
               <p class="form-error" data-error-for="message"></p>
             </div>
 
@@ -182,28 +64,15 @@ const trust = [
                 id="contact-submit"
                 class="group relative inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-base font-semibold text-white shadow-[0_8px_30px_-8px_var(--glow-primary)] transition-all duration-200 hover:bg-primary-hover hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
               >
-                <span data-btn-label>Send message</span>
-                <svg
-                  data-btn-spinner
-                  class="hidden h-5 w-5 animate-spin"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  aria-hidden="true"
-                >
+                <span data-btn-label>{contact.buttonLabel}</span>
+                <svg data-btn-spinner class="hidden h-5 w-5 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-opacity="0.3" stroke-width="3"></circle>
                   <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path>
                 </svg>
               </button>
             </div>
 
-            <!-- Status region (aria-live for screen readers) -->
-            <p
-              id="form-status"
-              class="sm:col-span-2 hidden rounded-[var(--radius)] border px-4 py-3 text-sm"
-              role="status"
-              aria-live="polite"
-            >
-            </p>
+            <p id="form-status" class="hidden rounded-[var(--radius)] border px-4 py-3 text-sm sm:col-span-2" role="status" aria-live="polite"></p>
           </form>
         </div>
       </div>
@@ -214,14 +83,12 @@ const trust = [
 <script>
   const form = document.getElementById("contact-form") as HTMLFormElement | null;
   if (form) {
-    // With JS on, we handle validation ourselves. Without JS, native HTML5
-    // validation (required / type=email) still guards the form.
     form.noValidate = true;
     const status = document.getElementById("form-status")!;
     const btn = document.getElementById("contact-submit") as HTMLButtonElement;
     const label = btn.querySelector<HTMLElement>("[data-btn-label]")!;
     const spinner = btn.querySelector<HTMLElement>("[data-btn-spinner]")!;
-
+    const defaultLabel = label.textContent || "Start the Conversation";
     const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     const showFieldError = (name: string, msg: string) => {
@@ -235,21 +102,16 @@ const trust = [
     };
 
     const validate = () => {
-      let ok = true;
       const data = new FormData(form);
       const name = String(data.get("name") || "").trim();
       const email = String(data.get("email") || "").trim();
       const message = String(data.get("message") || "").trim();
-
       showFieldError("name", name ? "" : "Please enter your name.");
       showFieldError("email", !email ? "Please enter your email." : !emailRe.test(email) ? "Enter a valid email address." : "");
       showFieldError("message", message ? "" : "Please add a short message.");
-
-      if (!name || !email || !emailRe.test(email) || !message) ok = false;
-      return ok;
+      return Boolean(name && email && emailRe.test(email) && message);
     };
 
-    // Clear a field error as the user fixes it.
     ["name", "email", "message"].forEach((n) => {
       form.querySelector(`[name="${n}"]`)?.addEventListener("input", () => showFieldError(n, ""));
     });
@@ -267,7 +129,7 @@ const trust = [
 
     const setLoading = (loading: boolean) => {
       btn.disabled = loading;
-      label.textContent = loading ? "Sending…" : "Send message";
+      label.textContent = loading ? "Sending…" : defaultLabel;
       spinner.classList.toggle("hidden", !loading);
     };
 
@@ -275,7 +137,6 @@ const trust = [
       e.preventDefault();
       status.classList.add("hidden");
       if (!validate()) return;
-
       setLoading(true);
       try {
         const res = await fetch(form.action, {
@@ -286,10 +147,7 @@ const trust = [
         const json = await res.json().catch(() => ({}));
         if (res.ok && json.ok) {
           form.reset();
-          setStatus(
-            "success",
-            "Thanks — your message is on its way. We'll get back to you shortly.",
-          );
+          setStatus("success", "Thank you — your message is on its way. We'll be in touch shortly.");
         } else {
           setStatus("error", json.error || "Something went wrong. Please try again or email us directly.");
         }
