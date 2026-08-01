@@ -22,6 +22,7 @@
   /* Text */
   --color-text: #e7e9ee;
   --color-muted: #9aa3b2;
+  --color-faint: #7c8290;
 
   /* Brand */
   --color-primary: #2a63f5; /* brand blue (from PDF accents, nudged to pass AA contrast with white) */
@@ -44,7 +45,8 @@
   /* Geometry */
   --radius: 14px;
   --radius-lg: 20px;
-  --maxw: 1200px;
+  --maxw: 1320px;
+  --maxw-prose: 720px;
 
   color-scheme: dark;
 }
@@ -57,6 +59,7 @@
   --color-surface-2: #eef1f6;
   --color-text: #0b0d12;
   --color-muted: #55617a;
+  --color-faint: #6b7280;
   --color-primary: #2a63f5; /* matches dark theme; passes AA contrast with white */
   --color-primary-hover: #1f57e6;
   --color-accent: #7c5cff;
@@ -83,6 +86,8 @@ html {
   scroll-behavior: smooth;
   /* Offset anchor targets so the sticky header never overlaps section titles. */
   scroll-padding-top: 88px;
+  /* Reserve scrollbar space so the hero's brief scroll-lock doesn't shift layout. */
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -90,7 +95,8 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family:
-    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    "Inter Variable", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, sans-serif;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -167,6 +173,19 @@ body::after {
 }
 
 /* Gradient text used for the brand-highlighted words. */
+.prose-col {
+  max-width: var(--maxw-prose);
+}
+
+/* Small uppercase eyebrow/overline in brand colour. */
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
 .text-gradient {
   background: linear-gradient(100deg, var(--color-primary), var(--color-accent));
   -webkit-background-clip: text;
@@ -192,21 +211,36 @@ body::after {
 }
 
 /* --------------------------- Scroll reveal ------------------------------- */
-/* Elements tagged with [data-reveal] start hidden and animate in when the
-   IntersectionObserver adds .is-visible. Staggering is done with
-   --reveal-delay inline. */
+/* Elements tagged with [data-reveal] rise from depth (translate + scale) when
+   the IntersectionObserver adds .is-visible. Stagger via --reveal-delay. */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(30px) scale(0.985);
   transition:
-    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
 }
 [data-reveal].is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+}
+
+/* Opening reveal — the page gently fades itself in. */
+.page-fade {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.page-fade.is-ready {
+  opacity: 1;
+}
+
+/* "Going deeper" — the section in focus sits forward; passed sections recede a
+   touch (dimmed by JS on [data-depth]). Kept subtle so content stays readable. */
+[data-depth] {
+  transition: opacity 0.35s ease-out;
+  will-change: opacity;
 }
 
 /* ------------------------------ Form fields ------------------------------ */
@@ -271,5 +305,12 @@ body::after {
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
+  }
+  .page-fade {
+    opacity: 1 !important;
+  }
+  [data-depth] {
+    transform: none !important;
+    opacity: 1 !important;
   }
 }

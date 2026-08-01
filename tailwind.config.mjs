@@ -12,12 +12,14 @@ export default {
         "surface-2": "var(--color-surface-2)",
         text: "var(--color-text)",
         muted: "var(--color-muted)",
+        faint: "var(--color-faint)",
         primary: "var(--color-primary)",
         "primary-hover": "var(--color-primary-hover)",
         accent: "var(--color-accent)",
         danger: "var(--color-danger)",
         success: "var(--color-success)",
         border: "var(--color-border)",
+        "border-strong": "var(--color-border-strong)",
       },
       borderColor: {
         DEFAULT: "var(--color-border)",
@@ -28,9 +30,10 @@ export default {
       },
       maxWidth: {
         content: "var(--maxw)",
+        prose: "var(--maxw-prose)",
       },
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
+        sans: ["Inter Variable", "Inter", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
       },
       boxShadow: {
         glow: "0 0 0 1px var(--color-border), 0 20px 60px -20px rgba(47,107,255,0.35)",
