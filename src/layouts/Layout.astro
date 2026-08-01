@@ -9,7 +9,7 @@ interface Props {
 }
 
 const {
-  title = "Ad-Ascent — Make the trust you've earned offline obvious online",
+  title = "Ad-Ascent",
   description = site.description,
 } = Astro.props;
 
@@ -46,7 +46,7 @@ const faqLd = {
 ---
 
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -59,7 +59,7 @@ const faqLd = {
           var stored = localStorage.getItem("theme");
           document.documentElement.setAttribute(
             "data-theme",
-            stored === "dark" ? "dark" : "light",
+            stored === "light" ? "light" : "dark",
           );
         } catch (e) {}
       })();
@@ -68,8 +68,8 @@ const faqLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#ffffff" />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#0b0d12" />
+    <meta name="color-scheme" content="dark light" />
 
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
