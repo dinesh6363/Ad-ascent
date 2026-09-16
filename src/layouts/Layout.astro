@@ -8,10 +8,7 @@ interface Props {
   description?: string;
 }
 
-const {
-  title = "Ad-Ascent",
-  description = site.description,
-} = Astro.props;
+const { title = "Ad-Ascent", description = site.description } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, SITE_URL).href;
 const ogImage = new URL("/og-image.png", SITE_URL).href;
@@ -46,7 +43,7 @@ const faqLd = {
 ---
 
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -57,10 +54,7 @@ const faqLd = {
       (function () {
         try {
           var stored = localStorage.getItem("theme");
-          document.documentElement.setAttribute(
-            "data-theme",
-            stored === "light" ? "light" : "dark",
-          );
+          document.documentElement.setAttribute("data-theme", stored === "dark" ? "dark" : "light");
         } catch (e) {}
       })();
     </script>
@@ -68,8 +62,8 @@ const faqLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#0b0d12" />
-    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light dark" />
 
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -83,7 +77,10 @@ const faqLd = {
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Ad-Ascent — make the trust you've earned offline obvious online" />
+    <meta
+      property="og:image:alt"
+      content="Ad-Ascent — make the trust you've earned offline obvious online"
+    />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
@@ -129,7 +126,8 @@ const faqLd = {
       syncThemeColor();
       document.querySelectorAll<HTMLButtonElement>(".theme-toggle").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+          const current =
+            document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
           const next = current === "dark" ? "light" : "dark";
           document.documentElement.setAttribute("data-theme", next);
           try {
@@ -179,7 +177,9 @@ const faqLd = {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
                 const id = entry.target.id;
-                spyLinks.forEach((l) => l.classList.toggle("is-active", l.getAttribute("href") === `#${id}`));
+                spyLinks.forEach((l) =>
+                  l.classList.toggle("is-active", l.getAttribute("href") === `#${id}`),
+                );
               }
             });
           },
@@ -230,8 +230,12 @@ const faqLd = {
         mobileMenu.classList.toggle("is-open", open);
         document.body.style.overflow = open ? "hidden" : "";
       };
-      menuBtn?.addEventListener("click", () => setMenu(menuBtn.getAttribute("aria-expanded") !== "true"));
-      mobileMenu?.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+      menuBtn?.addEventListener("click", () =>
+        setMenu(menuBtn.getAttribute("aria-expanded") !== "true"),
+      );
+      mobileMenu
+        ?.querySelectorAll("a")
+        .forEach((a) => a.addEventListener("click", () => setMenu(false)));
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") setMenu(false);
       });

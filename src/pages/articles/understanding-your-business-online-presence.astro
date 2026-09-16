@@ -1,0 +1,1076 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import WhatsAppButton from "../../components/WhatsAppButton.astro";
+import Icon from "../../components/Icon.astro";
+import Button from "../../components/Button.astro";
+import { article, ctaLink } from "../../config";
+
+const { toc, definition } = article;
+---
+
+<Layout title={`${article.title} — Ad-Ascent`} description={article.description}>
+  <Header />
+
+  <!--
+    Deliberately an <article>, not a <section>: Layout's depth-scroll effect
+    targets `main > section` and dimming a long read while you're in it is
+    hostile. The section ids inside still feed the shared scroll-spy, which is
+    what lights up the table of contents in the left rail.
+  -->
+  <main id="main">
+    <article class="pb-10 pt-32 sm:pt-36">
+      <div class="container">
+        <a
+          href="/#article"
+          class="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-text"
+        >
+          <Icon name="arrow" class="h-4 w-4 rotate-180" />
+          Back to home
+        </a>
+
+        <header class="mx-auto mt-10 max-w-3xl text-center">
+          <p data-reveal class="eyebrow">Article</p>
+
+          <h1
+            data-reveal
+            style="--reveal-delay:60ms"
+            class="mt-3 text-3xl font-extrabold tracking-tight text-text sm:text-[2.7rem] sm:leading-[1.1]"
+          >
+            {article.title}
+          </h1>
+
+          <p
+            data-reveal
+            style="--reveal-delay:120ms"
+            class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-muted"
+          >
+            {article.lead}
+          </p>
+        </header>
+
+        <hr class="mt-12 border-0 border-t border-border" />
+
+        <div class="mt-12 grid gap-10 lg:grid-cols-[minmax(0,19rem)_minmax(0,1fr)] lg:gap-14">
+          <!-- Left rail: the map of the article, plus the one definition the
+               whole argument rests on. Both stay in view while you read. -->
+          <aside
+            data-reveal
+            class="space-y-5 lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:self-start lg:overflow-y-auto lg:pr-1"
+          >
+            <nav
+              aria-labelledby="toc-heading"
+              class="bg-surface/50 rounded-[var(--radius-lg)] border border-border p-6"
+            >
+              <h2 id="toc-heading" class="text-base font-bold text-text">In this article</h2>
+              <ol class="mt-4 space-y-3 text-sm">
+                {
+                  toc.map((item, i) => (
+                    <li>
+                      <a
+                        href={`#${item.id}`}
+                        data-spy-link
+                        class="flex gap-2.5 leading-snug text-muted transition-colors hover:text-text [&.is-active]:font-semibold [&.is-active]:text-primary"
+                      >
+                        <span class="shrink-0 tabular-nums text-faint">{i + 1}.</span>
+                        <span>{item.label}</span>
+                      </a>
+
+                      {item.children.length > 0 && (
+                        <ol class="mt-2.5 space-y-2.5 pl-6">
+                          {item.children.map((child, j) => (
+                            <li>
+                              <a
+                                href={`#${child.id}`}
+                                data-spy-link
+                                class="flex gap-2.5 leading-snug text-muted transition-colors hover:text-text [&.is-active]:font-semibold [&.is-active]:text-primary"
+                              >
+                                <span class="shrink-0 text-faint">
+                                  {String.fromCharCode(97 + j)}.
+                                </span>
+                                <span>{child.label}</span>
+                              </a>
+                            </li>
+                          ))}
+                        </ol>
+                      )}
+                    </li>
+                  ))
+                }
+              </ol>
+            </nav>
+
+            <div class="bg-surface/50 rounded-[var(--radius-lg)] border border-border p-6">
+              <h2 class="text-base font-bold text-text">{definition.title}</h2>
+              <div class="mt-4 space-y-3 text-sm leading-relaxed text-muted">
+                {definition.paragraphs.map((p) => <p>{p}</p>)}
+                <p class="font-semibold text-text">{definition.closing}</p>
+              </div>
+            </div>
+          </aside>
+
+          <div class="article-prose min-w-0 max-w-[68ch]">
+            <section>
+              <div class="callout callout--tagged">
+                <p class="eyebrow">Who this is for</p>
+                <p>
+                  This is for you if you run a business and are thinking about using the internet to
+                  help your business, but aren't sure what an online presence should actually look
+                  like for your business or where to begin.
+                </p>
+                <p>
+                  By the end, you should have a clearer idea of what an online presence is meant to
+                  accomplish, what its different parts can do, and what you need to think about
+                  before deciding what your business needs.
+                </p>
+              </div>
+
+              <p>
+                If you've been running a business, you've probably felt that you should be more
+                intentional about your online presence. Perhaps you've noticed competitors appearing
+                online, had customers look for you on the internet, or simply sensed that your
+                business is missing opportunities because people can't easily find or understand it
+                there.
+              </p>
+              <p>But that feeling leaves out a more fundamental question:</p>
+              <p><strong>What does your business actually need the internet to do?</strong></p>
+              <p>The answer isn't necessarily the same for every business.</p>
+              <p>As we started talking to business owners, we understood this even more clearly.</p>
+              <p>
+                Ethan had just started out, knew that the internet was important, and already had a
+                presence on social media. He wanted to develop further digital assets, but wasn't
+                sure why or how each one could help, or whether his business needed them right now.
+              </p>
+              <p>
+                Michael, on the other hand, already has an established catering business based
+                almost entirely on referrals. When we suggested a website to him, his reaction was:
+                “Yeah, I know I should probably do it, but the business is already doing well.” He
+                was not sure what an online asset could add to his business.
+              </p>
+              <p>
+                Henry runs a car detailing studio and has spent a year consistently posting videos
+                of his work on Instagram. He gained followers and built an audience, but that
+                attention didn't translate into the local customer acquisition he was looking for;
+                much of his audience was global rather than local. Later, we got his business onto
+                Google Maps and began showcasing some of his work there. He then started getting a
+                new customer every other day through Google.
+              </p>
+              <p>
+                An example from our own business: Ad-Ascent began as a Google Ads management agency.
+                As we spoke with business owners, we encountered a deeper problem: people might
+                reply or enquire, yet still hesitate to trust us. We realised that trust was part of
+                the customer's decision. So we asked what information, evidence, experience, and
+                environment people needed in order to evaluate us. That was when we began focusing
+                on developing the appropriate online assets.
+              </p>
+              <p>
+                All four are dealing with the internet, but they're not dealing with the same
+                problem.
+              </p>
+              <p>
+                That's important because it shows that there isn't a standard set of online assets
+                that every business should build.
+              </p>
+              <p>
+                To understand what might make sense for your business, we first need to understand
+                what it means for a business to have an online presence in the first place.
+              </p>
+              <p>
+                The internet is a medium through which people can discover businesses, exchange
+                information with them, evaluate them, communicate with them, transact with them, and
+                continue relationships with them.
+              </p>
+              <p>
+                A business's online presence isn't simply a website, a Facebook account, or a Google
+                listing. It is the way the business exists and can be encountered on the internet
+                through the information and representations associated with it. Some of it is
+                created and managed by the business, and some of it isn't.
+              </p>
+              <p>
+                A business might have a website that it controls, a Google Business Profile that it
+                manages, reviews written by customers, and articles or directory listings created by
+                other people.
+              </p>
+              <p>
+                All of these can affect how someone encounters and understands the business online.
+              </p>
+              <p>This means something slightly counterintuitive:</p>
+
+              <blockquote class="pull">
+                <p>A business doesn't decide whether it has an online presence.</p>
+                <p>It decides how deliberately it participates in and manages that presence.</p>
+              </blockquote>
+
+              <p>
+                And once you take all of that into account, it's clear that an online presence isn't
+                itself a problem to solve, but rather a situation to understand.
+              </p>
+              <p>
+                A business can have very little online presence and be doing perfectly well. It can
+                have a large and active online presence and still struggle to find the right
+                customers, explain what it does, earn trust, or turn attention into business.
+              </p>
+              <p>
+                The useful work begins when we ask <strong
+                  >what is actually happening between the business and the people it wants to serve.</strong
+                >
+              </p>
+              <p>
+                To answer that, we first need to look at how people encounter businesses online.
+              </p>
+            </section>
+
+            <section id="one-place">
+              <h2>People don't experience the internet as one place</h2>
+              <p>
+                When we say that someone can encounter your business on the internet, that can mean
+                many different things.
+              </p>
+              <p>
+                They might search for a service on Google. They might look for a business nearby on
+                Maps. They might see one of your videos while browsing Instagram or YouTube. They
+                might come across your business through a directory, a review, a recommendation, a
+                marketplace, an article written by someone else, or while chatting with an AI
+                assistant.
+              </p>
+              <p>
+                They are all encountering the same business, but not necessarily in the same
+                context.
+              </p>
+              <p>
+                This is an important distinction because <strong
+                  >different parts of the internet make different kinds of encounters possible.</strong
+                >
+              </p>
+              <p>
+                A search engine can help someone find information when they are actively looking for
+                it. A map can help someone discover businesses in a particular place. A social
+                platform can put a business in front of someone who wasn't necessarily looking for
+                it at that moment. A website can give someone a place to learn about the business in
+                more depth. An AI assistant can give someone another way to explore information,
+                compare options, ask questions, and discover businesses.
+              </p>
+              <p>These aren't simply different places for the same information.</p>
+              <p>
+                <strong
+                  >They are different environments, with different ways of discovering, consuming,
+                  evaluating, and acting on information.</strong
+                >
+              </p>
+              <p>And that means the question is:</p>
+              <blockquote class="note">
+                <p>
+                  “What kinds of encounters are possible in different online environments, and what
+                  role could they play in the relationship between a business and its customers?”
+                </p>
+              </blockquote>
+              <p>Once we start thinking this way, online assets become easier to understand.</p>
+              <p>
+                A website, Google Business Profile, Instagram account, YouTube channel, marketplace
+                listing, or other online asset doesn't have much meaning on its own. <strong
+                  >Its value depends on the role it can play in the relationship between your
+                  business and its customers.</strong
+                >
+              </p>
+              <p>That relationship can begin in very different ways.</p>
+              <p>
+                Someone may already know they need what you offer and simply be trying to find a
+                provider. Someone else may know they have a problem but not yet know what solution
+                exists. Someone may already be considering your business and need enough information
+                to decide whether to trust you. And someone else may not be looking for anything at
+                all, but could become interested after encountering something you share.
+              </p>
+              <p>
+                And to understand which encounters matter, we first need to look more closely at
+                what is actually happening between the business and its customers.
+              </p>
+            </section>
+
+            <section id="relationship">
+              <h2>Relationship between the business and its customers</h2>
+              <p>
+                When someone encounters or interacts with a business online, there is usually
+                something they are trying to accomplish.
+              </p>
+              <p>
+                They might be trying to understand a problem, find a solution, compare their
+                options, decide whether a business is right for them, contact someone, make a
+                purchase, or learn what a business is about or simply locate it.
+              </p>
+              <p>And the business has things it wants to accomplish too.</p>
+              <p>
+                It may want to become known to people who could benefit from its services. It may
+                want to explain what it does, demonstrate the quality of its work, answer questions,
+                make it easy for someone to enquire, complete a transaction, or stay connected with
+                an existing customer.
+              </p>
+              <p>
+                This brings us back to our central idea: the value of an online presence comes from
+                the role it plays in the relationship between the business and the people it serves
+                and wants to serve.
+              </p>
+              <p>
+                A website, an Instagram account, or a Google Business Profile only matters as long
+                as it helps the business and its customers move forward.
+              </p>
+              <p>
+                Consider what can happen between the moment someone first becomes aware of a
+                business and the moment they become a customer.
+              </p>
+
+              <blockquote class="note">
+                <p>They might first <strong>discover</strong> that the business exists.</p>
+                <p>
+                  Then they may try to <strong>understand</strong> what it does and whether it is relevant
+                  to them.
+                </p>
+                <p>
+                  If it seems relevant, they may <strong>evaluate</strong> it against other options. They
+                  may look at its work, expertise, reputation, pricing, approach, or what previous customers
+                  have said.
+                </p>
+                <p>
+                  They may then decide whether they <strong>trust</strong> the business enough to make
+                  contact.
+                </p>
+                <p>
+                  After that, the relationship doesn't necessarily end with a <strong
+                    >purchase</strong
+                  >. The business still has to deliver the service, communicate with the customer,
+                  support them when necessary, and perhaps <strong
+                    >earn another purchase or a recommendation.</strong
+                  >
+                </p>
+              </blockquote>
+
+              <p>
+                Not every business needs the internet to play a role in every one of these stages.
+              </p>
+              <p>
+                A business that already receives most of its customers through personal referrals
+                may not need to invest heavily in online discovery. It may benefit more from making
+                it easier for referred customers to understand the business and decide whether it is
+                a good fit.
+              </p>
+              <p>
+                Another business may have plenty of people who know it exists but struggle to turn
+                that awareness into enquiries. Its opportunity may be somewhere else.
+              </p>
+              <p>
+                And a new business may have the opposite problem: very few people know it exists in
+                the first place. Its opportunity lies in getting discovered.
+              </p>
+              <p>
+                What matters depends on what the business is trying to accomplish and what is
+                already working in the relationship. And if people can encounter a business at
+                different points in that relationship, we need to understand where they are starting
+                from.
+              </p>
+
+              <section id="arrive-differently">
+                <h3>People don't always arrive looking for the same thing</h3>
+                <p>
+                  There is another difference that matters when thinking about the relationship
+                  between a business and its customers. People don't always arrive at the same
+                  point.
+                </p>
+                <p>Imagine someone whose car has suddenly broken down.</p>
+                <p>
+                  They already know exactly what they need: a mechanic. Their immediate concern is
+                  finding someone who can help, perhaps nearby and soon.
+                </p>
+                <p>
+                  Someone else may notice that their car has started making an unusual noise. They
+                  know something is wrong, but they don't yet know what the problem is or what they
+                  should do about it.
+                </p>
+                <p>
+                  And someone else may simply be interested in learning how to keep their car in
+                  better condition. They aren't looking for a mechanic at all.
+                </p>
+                <p>
+                  The underlying opportunity for the business may be related, but the person's
+                  situation is different in each case.
+                </p>
+                <p>
+                  In the first situation, the person is already looking for a provider. The business
+                  has an opportunity to capture existing demand by being <strong
+                    >discovered, considered, and chosen.</strong
+                  >
+                </p>
+                <p>
+                  In the second, the person is aware of a problem but may not yet know what solution
+                  they need. The business can <strong>help them understand the problem</strong> and the
+                  possible ways of addressing it.
+                </p>
+                <p>
+                  In the third, there may not even be an immediate intention to buy. The business
+                  might instead <strong>create awareness, interest, or preference</strong> by showing
+                  something useful or relevant.
+                </p>
+                <p>We can give these two kinds of opportunity names.</p>
+                <p>
+                  When someone is already looking for what you provide, you're dealing with <strong
+                    >demand capture.</strong
+                  >
+                </p>
+                <p>
+                  When someone isn't yet looking for the solution you provide, but you can help
+                  create awareness, interest, or preference for it, you're dealing with <strong
+                    >demand creation.</strong
+                  >
+                </p>
+                <p>The boundary isn't always clean.</p>
+                <p>
+                  Someone searching for “how to remove scratches from a car” may be looking for a
+                  DIY solution, but may discover that professional detailing is a better option.
+                  Someone watching a detailing video may not have planned to buy anything, but the
+                  video may make them realise that their own car could benefit from the same
+                  treatment.
+                </p>
+                <p>The same digital environment can sometimes support both.</p>
+                <p>
+                  What matters is whether the business is meeting people where they are and giving
+                  them what they need to move forward.
+                </p>
+                <p>
+                  A thousand people encountering a business means very little if they are not the
+                  people the business can serve, are not in a situation where its offering is
+                  relevant, or are not being given what they need to move forward.
+                </p>
+                <p>The goal is not simply to get more people to encounter the business.</p>
+                <p>
+                  It is to <strong
+                    >help the right people and the business find each other, and then give them what
+                    they need at that point in the relationship.</strong
+                  >
+                </p>
+              </section>
+
+              <section id="environments">
+                <h3>Different environments, different opportunities</h3>
+                <p>
+                  Now that we understand the internet's role in a business's relationship with its
+                  customers and the opportunities it can create, it becomes easier to understand the
+                  role of different online environments.
+                </p>
+                <p>Consider Google:</p>
+                <p>
+                  When someone searches for a business, service, problem, or answer, they are
+                  already actively looking for something. They have brought a question, problem, or
+                  need to the search engine, and the businesses and information they encounter are
+                  part of the options available to them.
+                </p>
+                <p>
+                  For a local business, this may happen through Google Maps. Someone may be looking
+                  for a particular kind of business in a particular area, comparing nearby options,
+                  checking reviews, looking at photographs, or trying to decide where to go.
+                </p>
+                <p>
+                  Search and Maps are different contexts within the same broader Google environment,
+                  but they can both put a business in front of someone who is already looking for
+                  something relevant.
+                </p>
+                <p>Social platforms create a different kind of opportunity.</p>
+                <p>
+                  People don't necessarily open Instagram, Facebook or YouTube because they want to
+                  find a particular business. They may be browsing, following people they are
+                  interested in, watching something entertaining, or learning about a subject.
+                </p>
+                <p>
+                  A business can participate in that environment by showing its work, sharing useful
+                  knowledge, demonstrating expertise, expressing its personality, or simply becoming
+                  familiar to people who may eventually need what it offers.
+                </p>
+                <p>That can create interest before there is an active search for a provider.</p>
+                <p>Then there is the business's own website.</p>
+                <p>
+                  A website is different from a profile on someone else's platform because the
+                  business has much greater control over the environment in which it represents
+                  itself.
+                </p>
+                <p>
+                  It can decide what information to provide, how that information is organised, how
+                  different parts of the business are explained, what evidence to present, and what
+                  people can do next.
+                </p>
+                <p>
+                  Someone who has already discovered a business can use the website to understand it
+                  more deeply.
+                </p>
+                <p>
+                  They might want to know exactly what the business offers, whether it serves their
+                  particular situation, what its work looks like, how the process works, what
+                  previous customers have experienced, or how to get started.
+                </p>
+                <p>
+                  <strong
+                    >A website can therefore become a place where discovery turns into
+                    understanding, evaluation, trust, and action.</strong
+                  >
+                </p>
+                <p>
+                  But having an online asset doesn't mean that the opportunity it could create is
+                  being realised.
+                </p>
+                <p>
+                  A business can have an Instagram account without using it to create meaningful
+                  awareness. It can have a website that doesn't help someone understand why they
+                  should choose it. It can appear on Google without being easy to evaluate.
+                </p>
+                <p>
+                  Having an asset, therefore, tells us very little by itself. What matters is what
+                  that asset enables the business and its customers to do.
+                </p>
+                <p>
+                  And once we start thinking about online presence this way, the question becomes: <strong
+                    >what infrastructure does the business actually need.</strong
+                  >
+                </p>
+              </section>
+            </section>
+
+            <section id="infrastructure">
+              <h2>The right infrastructure depends on the business</h2>
+              <p>Take Michael's catering business.</p>
+              <p>
+                He already has a functioning business and receives most of his customers through
+                referrals and repeat customers. If his existing customers are happy and the business
+                has enough work, creating more awareness may not be his most important problem.
+              </p>
+              <p>
+                A website could still be useful. It might help someone who has been referred to him
+                understand his services, see examples of his work, learn about the kind of events he
+                handles, and decide whether to get in touch.
+              </p>
+              <p>
+                But that is a different reason for having a website from a new business that nobody
+                knows exists. The difference is the business situation.
+              </p>
+              <p>
+                The same applies to customers. You need to understand not only who they are, but how
+                they make decisions.
+              </p>
+
+              <blockquote class="note">
+                <p>
+                  Where do they discover businesses like yours? What questions do they have? What
+                  information do they need before they will consider you? What makes them trust one
+                  business over another? What makes them take action?
+                </p>
+              </blockquote>
+
+              <p>Sometimes the opportunity is obvious.</p>
+              <p>
+                A business might be easy to find, but people don't understand what makes it relevant
+                to them.
+              </p>
+              <p>
+                Sometimes people understand the offering but don't have enough evidence to feel
+                comfortable choosing it.
+              </p>
+              <p>
+                And sometimes the business has already solved most of these problems, and the
+                opportunity lies somewhere else entirely.
+              </p>
+              <p>
+                This is why the customer's experience matters as much as the business's objective.
+              </p>
+              <p>You can think about the problem as a series of questions.</p>
+
+              <blockquote class="note">
+                <p>First, what does the business want to achieve?</p>
+                <p>
+                  Then, what are customers currently experiencing, and where are they encountering
+                  difficulty?
+                </p>
+                <p>Next, what information or experience would help customers move forward?</p>
+              </blockquote>
+
+              <p>
+                Only after answering those questions should you decide which online environment
+                would be most useful, and what infrastructure needs to be built within it.
+              </p>
+              <p>
+                The business objective tells you what you want to achieve. The customer's situation
+                helps you understand where the difficulty lies. And the gap between them helps
+                determine what online environment and infrastructure could be useful.
+              </p>
+              <p>Suppose a local service business wants more enquiries from people in its area.</p>
+              <p>
+                We shouldn't jump straight from that goal to “build a website” or “run Google Ads.”
+              </p>
+              <p>First we would ask what is happening today.</p>
+              <p>
+                Are enough local people aware that the business exists? Are they already searching
+                for the service? Can they find the business when they search? When they encounter
+                it, do they understand what it offers and whether it is right for them? If they do
+                understand it, do they have enough reason to trust it? And once they're ready, is it
+                easy to contact the business?
+              </p>
+              <p>The answers tell us where the actual gap is.</p>
+              <p>Only then does it make sense to decide what infrastructure could address it.</p>
+              <p>
+                That infrastructure might be a better Google presence, a website, useful content, a
+                social presence, improved reviews, a booking system, better enquiry handling, or
+                some combination of these.
+              </p>
+              <p>It might even be that the business doesn't need to build anything new yet.</p>
+              <p>
+                Perhaps an existing asset is poorly used. Perhaps the real constraint is not
+                discovery but the business's capacity to respond to enquiries. Perhaps the business
+                has enough customers already and should focus on serving and retaining them better.
+              </p>
+              <p>
+                The point is to build enough of the <strong>right infrastructure</strong> to accomplish
+                what the business actually needs from the internet.
+              </p>
+              <p>
+                And even once you know what could help, you still have another decision to make:
+              </p>
+              <p><strong>What should you do first?</strong></p>
+
+              <section id="not-all-at-once">
+                <h3>Not everything needs to be done at once</h3>
+                <p>
+                  Knowing what could improve a business's online presence doesn't mean all of it
+                  needs to be done immediately. In fact, trying to build everything at once can make
+                  it harder to build anything well.
+                </p>
+                <p>
+                  The better approach is to consider what matters most in the business's current
+                  situation.
+                </p>
+                <p>
+                  If the immediate problem is that people who are already looking for the service
+                  can't find the business, improving discovery may deserve attention before creating
+                  content to build long-term awareness.
+                </p>
+                <p>
+                  If people are finding the business but leaving because they don't understand what
+                  it offers, improving the information and experience they encounter may matter more
+                  than generating more traffic.
+                </p>
+                <p>
+                  If people are interested but hesitant to enquire, the problem may be trust,
+                  evidence, or uncertainty rather than visibility.
+                </p>
+                <p>
+                  And if the business already has more enquiries than it can handle, generating even
+                  more attention may actually make the underlying problem worse.
+                </p>
+                <p>The question is always relative to the situation.</p>
+                <p>One useful way to think about priority is to consider four things:</p>
+
+                <blockquote class="note">
+                  <p>
+                    <strong>Importance:</strong> How much does solving this problem matter to the business
+                    right now?
+                  </p>
+                  <p>
+                    <strong>Potential value:</strong> If we improve it, how much difference could it make?
+                  </p>
+                  <p>
+                    <strong>Dependencies:</strong> Does something else need to be understood or built
+                    first?
+                  </p>
+                </blockquote>
+
+                <p>and most importantly,</p>
+
+                <blockquote class="note">
+                  <p>
+                    <strong
+                      >Capacity: Can the business realistically create, maintain, and operate it
+                      well?</strong
+                    >
+                  </p>
+                </blockquote>
+
+                <p>
+                  An asset isn't finished when it has been created. It may need new information,
+                  regular updates, customer responses, content, technical maintenance, or someone
+                  available to handle the interactions it generates.
+                </p>
+                <p>
+                  Building something the business cannot maintain can create a new problem rather
+                  than solve an existing one.
+                </p>
+                <p>
+                  The goal is to build <strong
+                    >enough of the right infrastructure, in the right order, to accomplish what the
+                    business needs.</strong
+                  >
+                </p>
+                <p>
+                  And there is no universal list of online assets at the end of this process. There
+                  is simply the infrastructure that makes sense for a particular business, its
+                  customers, its circumstances, and what it is trying to accomplish.
+                </p>
+              </section>
+            </section>
+
+            <section id="at-a-glance">
+              <div class="callout">
+                <h2>What we've learned, at a glance</h2>
+                <ul>
+                  <li>There is no universal set of online assets that every business needs.</li>
+                  <li>
+                    An online presence is first a situation to understand, and only later something
+                    to build. It isn't simply a collection of things a business publishes; it also
+                    includes how people encounter and understand the business online, including what
+                    others say about it.
+                  </li>
+                  <li>
+                    The internet isn't one place. Different online environments create different
+                    contexts for discovering, understanding, evaluating, and acting on information,
+                    so the value of an asset depends on the role it can play in those contexts and
+                    in the customer relationship.
+                  </li>
+                  <li>
+                    A customer relationship can develop through different stages:
+                    <ul>
+                      <li>
+                        discover → understand → evaluate → trust → contact → purchase →
+                        recommendation.
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    People can encounter a business at different points in their awareness and
+                    consideration, creating different opportunities for the business. The internet
+                    can help a business capture existing demand or create awareness, interest, or
+                    preference before active demand exists.
+                  </li>
+                  <li>
+                    The goal is to help the right people and the business find each other, and give
+                    people what they need at the point they are in the relationship.
+                  </li>
+                  <li>
+                    What a business needs emerges from what it wants to accomplish, its current
+                    situation, its customers' situation, and the gap between them.
+                  </li>
+                  <li>
+                    Priority depends on importance, potential value, dependencies, and the
+                    business's capacity to create, maintain, and operate what it builds. Online
+                    infrastructure creates ongoing operating requirements, so building something the
+                    business cannot maintain can create a new problem rather than solve an existing
+                    one.
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <section id="four-businesses">
+              <h2>Four businesses, four different problems</h2>
+              <p>We can now return to the four businesses we met at the beginning.</p>
+              <p>Ethan started with the question, “What should I build?”</p>
+              <p>
+                But his business was still taking shape. His first step was understanding what he
+                wanted the internet to accomplish and how his customers might find and choose him.
+              </p>
+              <p>Michael's situation was different.</p>
+              <p>
+                His catering business already had enough work. His question was whether a website
+                could add something valuable to the relationships he was already building. If it
+                could help referred customers understand, evaluate, and choose his business, it
+                might make sense. If not, there was no reason to build one simply because businesses
+                are “supposed” to have websites.
+              </p>
+              <p>
+                Henry had already invested heavily in his digital presence but built an audience
+                outside the market he serves. When his business became easier to discover in a
+                context where local customers were actually looking for a car detailing service, the
+                same work had a different opportunity to contribute to the business.
+              </p>
+              <p>
+                And then there was our own experience with Ad-Ascent. Our problem wasn't only
+                visibility. It was also understanding what needed to happen after someone found us.
+              </p>
+              <p>These are four different situations.</p>
+              <p>
+                Therefore if you're thinking about your own business, you don't have to begin by
+                asking whether you need a website, whether you should be on Instagram, or whether
+                you need to invest in SEO or advertising.
+              </p>
+              <p>Those may eventually be the right decisions.</p>
+              <p>
+                But they are decisions that make more sense once you've understood a few things:
+              </p>
+
+              <blockquote class="note">
+                <p><strong>What am I trying to accomplish?</strong></p>
+                <p>
+                  <strong>What is happening between my business and its customers today?</strong>
+                </p>
+                <p><strong>Where could the internet improve that relationship?</strong></p>
+                <p><strong>What do my customers need to know or experience?</strong></p>
+                <p><strong>Where could that happen most effectively?</strong></p>
+                <p><strong>What infrastructure would make it possible?</strong></p>
+              </blockquote>
+
+              <p>And finally:</p>
+              <p><strong>What should I do first?</strong></p>
+              <p>
+                You may discover that you need a website that helps people understand and trust your
+                business, or that your Google presence deserves more attention.
+              </p>
+              <p>You may find that social media is genuinely valuable for your business.</p>
+              <p>
+                You may realise that you don't need another asset at all, you need to make better
+                use of what you already have.
+              </p>
+              <p>
+                Or you may discover that the most important thing to do first has nothing to do with
+                building an asset. You may need to clarify your offering, understand your customers
+                better, improve how you handle enquiries, or simply decide what you want the
+                business to accomplish.
+              </p>
+              <p>
+                The point of understanding your online presence is not to end up with more things
+                online.
+              </p>
+              <p>
+                It is to understand <strong
+                  >how your business exists on the internet, how people encounter it, and where the
+                  internet can meaningfully contribute to the relationship between your business and
+                  the people you want to serve.</strong
+                >
+              </p>
+              <p>
+                Once you can see that clearly, deciding what to build becomes a much smaller
+                problem.
+              </p>
+            </section>
+
+            <section>
+              <div class="callout">
+                <h2>A note on digital, online, assets and infrastructure</h2>
+                <p>
+                  We've used these terms throughout the article, and they're related but not
+                  interchangeable.
+                </p>
+
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th scope="col">Term</th>
+                        <th scope="col">What it describes</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Digital</th>
+                        <td>
+                          The broader category of technology, information, systems and assets
+                          represented or operated in digital form.
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Online</th>
+                        <td>The part of that digital category connected through the internet</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Environment</th>
+                        <td>The context in which people encounter and interact with a business</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Asset</th>
+                        <td>A specific thing the business creates, owns, manages, or uses</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Infrastructure</th>
+                        <td>
+                          The collection of assets, systems, processes and capabilities that enable
+                          the business to accomplish something
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <p>
+                  Digital is the broader term. Online refers specifically to things connected
+                  through the internet. An environment describes the context in which people
+                  encounter and interact with a business, while an asset is something the business
+                  creates, owns, manages, or uses. Infrastructure is the broader system of assets,
+                  systems, processes, and capabilities that enables the business to accomplish
+                  something.
+                </p>
+                <p>Everything online is digital, but not everything digital is online.</p>
+              </div>
+            </section>
+
+            <div
+              class="bg-surface/50 mt-14 rounded-[var(--radius-lg)] border border-border p-8 text-center"
+            >
+              <p class="text-xl font-extrabold leading-snug text-text">
+                Wondering what this means for your business?
+              </p>
+              <p class="mx-auto mt-3 max-w-md text-center text-sm leading-relaxed text-muted">
+                We'd start by understanding where you are today — not by recommending a list of
+                things to build.
+              </p>
+              <Button href={`/${ctaLink.href}`} size="lg" class="mt-4" icon="arrow">
+                Start the Conversation
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+  <WhatsAppButton />
+</Layout>
+
+<style>
+  /* Long-form reading column. Typography lives here rather than as utilities on
+     every element — the body is ~130 paragraphs. */
+  .article-prose {
+    color: var(--color-muted);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+
+  .article-prose section + section {
+    margin-top: 3.25rem;
+  }
+
+  .article-prose p {
+    margin-top: 0;
+    margin-bottom: 1.15rem;
+  }
+
+  .article-prose strong {
+    color: var(--color-text);
+    font-weight: 650;
+  }
+
+  .article-prose h2 {
+    margin: 0 0 1.35rem;
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--color-text);
+    scroll-margin-top: 96px;
+  }
+
+  .article-prose h3 {
+    margin: 2.75rem 0 1.1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--color-text);
+    scroll-margin-top: 96px;
+  }
+
+  /* The staged progressions and question sets — set off from the argument. */
+  .article-prose blockquote {
+    margin: 1.75rem 0;
+    padding-left: 1.25rem;
+    border-left: 2px solid var(--color-primary);
+  }
+
+  .article-prose blockquote p {
+    margin: 0 0 0.6rem;
+  }
+
+  .article-prose blockquote p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* The one idea the article turns on. */
+  .article-prose blockquote.pull {
+    border-left-color: var(--color-accent);
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--color-text);
+  }
+
+  .article-prose .callout {
+    margin: 2.5rem 0;
+    padding: 1.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+
+  .article-prose .callout > :last-child {
+    margin-bottom: 0;
+  }
+
+  .article-prose .callout h2 {
+    font-size: 1.35rem;
+  }
+
+  /* The "who this is for" note opens the piece, so it sits flush with the top
+     of the reading column and lines up with the left rail beside it. */
+  .article-prose .callout--tagged {
+    margin-top: 0;
+  }
+
+  .article-prose .callout .eyebrow {
+    margin-bottom: 0.9rem;
+  }
+
+  .article-prose ul {
+    margin: 0 0 1.15rem;
+    padding-left: 1.15rem;
+    list-style: disc;
+  }
+
+  .article-prose li {
+    margin-bottom: 0.7rem;
+  }
+
+  .article-prose li > ul {
+    margin: 0.6rem 0 0;
+  }
+
+  .article-prose li:last-child {
+    margin-bottom: 0;
+  }
+
+  .article-prose .table-wrap {
+    margin: 1.5rem 0;
+    overflow-x: auto;
+  }
+
+  .article-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    text-align: left;
+  }
+
+  .article-prose th,
+  .article-prose td {
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+  }
+
+  .article-prose thead th {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-faint);
+  }
+
+  .article-prose tbody th {
+    width: 9.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .article-prose tbody tr:last-child th,
+  .article-prose tbody tr:last-child td {
+    border-bottom: 0;
+  }
+</style>
