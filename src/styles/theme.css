@@ -12,17 +12,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Light is the default theme — these tokens apply until <html data-theme="dark">
+   raises specificity and overrides them below. */
 :root,
-:root[data-theme="dark"] {
+:root[data-theme="light"] {
   /* Surfaces */
-  --color-bg: #0b0d12;
-  --color-surface: #14171f;
-  --color-surface-2: #1b1f2a;
+  --color-bg: #ffffff;
+  --color-surface: #f7f8fa;
+  --color-surface-2: #eef1f6;
 
   /* Text */
-  --color-text: #e7e9ee;
-  --color-muted: #9aa3b2;
-  --color-faint: #7c8290;
+  --color-text: #0b0d12;
+  --color-muted: #55617a;
+  --color-faint: #6b7280;
 
   /* Brand */
   --color-primary: #2a63f5; /* brand blue (from PDF accents, nudged to pass AA contrast with white) */
@@ -30,17 +32,17 @@
   --color-accent: #7c5cff; /* purple, from the PDF logo glyph */
 
   /* Status */
-  --color-danger: #ef4444; /* the red ✕ pain-point icons */
-  --color-success: #22c55e;
+  --color-danger: #dc2626;
+  --color-success: #16a34a;
 
   /* Lines & structure */
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-strong: rgba(255, 255, 255, 0.14);
+  --color-border: rgba(11, 13, 18, 0.1);
+  --color-border-strong: rgba(11, 13, 18, 0.16);
 
   /* Effects */
-  --grid-line: rgba(255, 255, 255, 0.035);
-  --glow-primary: rgba(47, 107, 255, 0.35);
-  --glow-accent: rgba(124, 92, 255, 0.3);
+  --grid-line: rgba(11, 13, 18, 0.04);
+  --glow-primary: rgba(47, 107, 255, 0.22);
+  --glow-accent: rgba(124, 92, 255, 0.2);
 
   /* Geometry */
   --radius: 14px;
@@ -48,29 +50,29 @@
   --maxw: 1320px;
   --maxw-prose: 720px;
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
-/* Optional light theme — override the same tokens. Trivial to enable a toggle:
-   add data-theme="light" on <html>. Structure is ready. */
-:root[data-theme="light"] {
-  --color-bg: #ffffff;
-  --color-surface: #f7f8fa;
-  --color-surface-2: #eef1f6;
-  --color-text: #0b0d12;
-  --color-muted: #55617a;
-  --color-faint: #6b7280;
-  --color-primary: #2a63f5; /* matches dark theme; passes AA contrast with white */
+/* Dark theme — the same tokens, re-pointed. Enabled by the header toggle, which
+   sets data-theme="dark" on <html> and remembers it in localStorage. */
+:root[data-theme="dark"] {
+  --color-bg: #0b0d12;
+  --color-surface: #14171f;
+  --color-surface-2: #1b1f2a;
+  --color-text: #e7e9ee;
+  --color-muted: #9aa3b2;
+  --color-faint: #7c8290;
+  --color-primary: #2a63f5;
   --color-primary-hover: #1f57e6;
   --color-accent: #7c5cff;
-  --color-danger: #dc2626;
-  --color-success: #16a34a;
-  --color-border: rgba(11, 13, 18, 0.1);
-  --color-border-strong: rgba(11, 13, 18, 0.16);
-  --grid-line: rgba(11, 13, 18, 0.04);
-  --glow-primary: rgba(47, 107, 255, 0.22);
-  --glow-accent: rgba(124, 92, 255, 0.2);
-  color-scheme: light;
+  --color-danger: #ef4444; /* the red ✕ pain-point icons */
+  --color-success: #22c55e;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.14);
+  --grid-line: rgba(255, 255, 255, 0.035);
+  --glow-primary: rgba(47, 107, 255, 0.35);
+  --glow-accent: rgba(124, 92, 255, 0.3);
+  color-scheme: dark;
 }
 
 /* ------------------------------- Base ------------------------------------ */
@@ -95,8 +97,14 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family:
-    "Inter Variable", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    Roboto, sans-serif;
+    "Inter Variable",
+    "Inter",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

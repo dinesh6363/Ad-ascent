@@ -60,8 +60,8 @@ export const hero = {
   beliefLine1: "The trust you've earned offline",
   beliefLine2Lead: "should be ",
   beliefLine2Highlight: "obvious online.",
-  observation: "Good businesses already know how to earn trust.",
-  help: "We help make that trust visible - from the first Google search to the moment a customer chooses you.",
+  observation: "We help businesses acquire customers through the internet.",
+  help: "We build websites, manage Google Ads, and help customers find you through organic search.",
 } as const;
 
 /* --------------------------------- Why ----------------------------------- */
@@ -90,6 +90,57 @@ export const why = {
   closing:
     "Closing that gap isn't about adding more marketing. It's about helping every part of your digital presence work together.",
   bridge: "That's exactly why Ad-Ascent exists.",
+} as const;
+
+/* -------------------------------- Article -------------------------------- */
+
+export const article = {
+  href: "/articles/understanding-your-business-online-presence",
+  overline: "Understanding your business's online presence",
+  lead: "Before deciding what to build, understand what your business needs the internet to do.",
+  teaser:
+    "Your online presence is more than a website, social media account, or Google listing. This article explores how people encounter businesses online, the different roles digital environments can play, and how to work out what your business actually needs.",
+  cta: "Read the article",
+  title: "Understanding your business's online presence",
+  description:
+    "An online presence isn't a checklist of assets. It's how your business can be encountered on the internet — and what it needs the internet to do. A guide to working that out before you decide what to build.",
+  /** Left rail table of contents. Every `id` must match a section id on the page. */
+  toc: [
+    {
+      id: "one-place",
+      label: "People don't experience the internet as one place",
+      children: [],
+    },
+    {
+      id: "relationship",
+      label: "The relationship between the business and its customers",
+      children: [
+        {
+          id: "arrive-differently",
+          label: "People don't always arrive looking for the same thing",
+        },
+        { id: "environments", label: "Different environments, different opportunities" },
+      ],
+    },
+    {
+      id: "infrastructure",
+      label: "The right infrastructure depends on the business",
+      children: [{ id: "not-all-at-once", label: "Not everything needs to be done at once" }],
+    },
+    { id: "at-a-glance", label: "What we've learned, at a glance", children: [] },
+    { id: "four-businesses", label: "Four businesses, four different problems", children: [] },
+  ],
+  /** Definition pinned in the left rail so the reader always has the context. */
+  definition: {
+    title: "What we mean by “customer relationship”",
+    paragraphs: [
+      "When we talk about the relationship between a business and its customers, we're considering both its existing customers and the people it wants to serve.",
+      "Someone doesn't become a customer until they actually choose to do business with you. But the relationship can begin before that, as they discover your business, try to understand what you offer, evaluate it, and decide whether to trust you.",
+      "Once they become a customer, the relationship continues through the experience you provide, the support you offer, future purchases, and potentially recommendations.",
+    ],
+    closing:
+      "So when we talk about the customer relationship, we're looking at the whole progression, not just what happens after someone becomes a customer.",
+  },
 } as const;
 
 /* --------------------------------- How ----------------------------------- */
@@ -231,7 +282,8 @@ export const conversation = {
       body: "Move forward only if we're the right fit.",
     },
   ],
-  conclusion: "Whether we work together or not, you'll leave with a clearer understanding of what comes next.",
+  conclusion:
+    "Whether we work together or not, you'll leave with a clearer understanding of what comes next.",
   belief: "Clarity comes before commitment.",
 } as const;
 
