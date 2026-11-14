@@ -29,7 +29,8 @@ export default defineConfig({
       // We manage the base reset/globals ourselves in src/styles/theme.css.
       applyBaseStyles: false,
     }),
-    sitemap(),
+    // /thanks is the post-submit confirmation page (noindex) — keep it out.
+    sitemap({ filter: (page) => !page.includes("/thanks") }),
   ],
   build: {
     inlineStylesheets: "auto",

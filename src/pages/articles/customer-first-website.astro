@@ -1,0 +1,804 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import WhatsAppButton from "../../components/WhatsAppButton.astro";
+import Icon from "../../components/Icon.astro";
+import Button from "../../components/Button.astro";
+import ArticleNext from "../../components/ArticleNext.astro";
+import { customerFirstArticle as article, onlinePresenceArticle, ctaLink } from "../../config";
+import "../../styles/article-prose.css";
+
+const { toc, journey } = article;
+---
+
+<Layout
+  title={article.seoTitle}
+  description={article.description}
+  article={{ headline: article.title, datePublished: article.datePublished }}
+>
+  <Header />
+
+  <!--
+    Deliberately an <article>, not a <section>: Layout's depth-scroll effect
+    targets `main > section` and dimming a long read while you're in it is
+    hostile. The section ids inside still feed the shared scroll-spy, which is
+    what lights up the table of contents in the left rail.
+  -->
+  <main id="main">
+    <article class="pb-10 pt-32 sm:pt-36">
+      <div class="container">
+        <a
+          href="/#articles"
+          class="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-text"
+        >
+          <Icon name="arrow" class="h-4 w-4 rotate-180" />
+          Back to home
+        </a>
+
+        <header class="mx-auto mt-10 max-w-3xl text-center">
+          <p data-reveal class="eyebrow">Article</p>
+
+          <h1
+            data-reveal
+            style="--reveal-delay:60ms"
+            class="mt-3 text-3xl font-extrabold tracking-tight text-text sm:text-[2.7rem] sm:leading-[1.1]"
+          >
+            {article.title}
+          </h1>
+
+          <p
+            data-reveal
+            style="--reveal-delay:120ms"
+            class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-muted"
+          >
+            {article.lead}
+          </p>
+        </header>
+
+        <hr class="mt-12 border-0 border-t border-border" />
+
+        <div class="mt-12 grid gap-10 lg:grid-cols-[minmax(0,19rem)_minmax(0,1fr)] lg:gap-14">
+          <!-- Left rail: the map of the article, plus the progression the whole
+               argument is organised around. Both stay in view while you read. -->
+          <aside
+            data-reveal
+            class="space-y-5 lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:self-start lg:overflow-y-auto lg:pr-1"
+          >
+            <nav
+              aria-labelledby="toc-heading"
+              class="bg-surface/50 rounded-[var(--radius-lg)] border border-border p-6"
+            >
+              <h2 id="toc-heading" class="text-base font-bold text-text">In this article</h2>
+              <ol class="mt-4 space-y-3 text-sm">
+                {
+                  toc.map((item, i) => (
+                    <li>
+                      <a
+                        href={`#${item.id}`}
+                        data-spy-link
+                        class="flex gap-2.5 leading-snug text-muted transition-colors hover:text-text [&.is-active]:font-semibold [&.is-active]:text-primary"
+                      >
+                        <span class="shrink-0 tabular-nums text-faint">{i + 1}.</span>
+                        <span>{item.label}</span>
+                      </a>
+                    </li>
+                  ))
+                }
+              </ol>
+            </nav>
+
+            <div class="bg-surface/50 rounded-[var(--radius-lg)] border border-border p-6">
+              <h2 class="text-base font-bold text-text">{journey.title}</h2>
+              <ol class="mt-4 space-y-2 text-sm">
+                {
+                  journey.stages.map((stage, i) => (
+                    <li class="flex items-center gap-2.5 font-semibold text-text">
+                      <span class="w-4 shrink-0 font-normal tabular-nums text-faint">{i + 1}.</span>
+                      {stage}
+                    </li>
+                  ))
+                }
+              </ol>
+              <p class="mt-4 text-sm leading-relaxed text-muted">{journey.note}</p>
+            </div>
+          </aside>
+
+          <div class="article-prose min-w-0 max-w-[68ch]">
+            <section id="introduction">
+              <div class="callout callout--tagged">
+                <p class="eyebrow">What you'll take away</p>
+                <p>
+                  By the end, you'll have a clear understanding of your customer's journey and what
+                  they need at any given stage.
+                </p>
+                <p>
+                  You'll also understand how to build a website that supports this journey,
+                  accurately represents your business, and helps turn visitors into customers.
+                </p>
+              </div>
+
+              <p>
+                I went to my developer and said, “I run a Google Ads management agency and I need a
+                website.”
+              </p>
+              <p>He made one.</p>
+              <p>
+                The result looked impressive. It had all the things you'd expect from a modern
+                agency website: cards, visuals, taglines, sections and polished design.
+              </p>
+              <p>
+                But when I started looking beneath the surface, I found a problem. The website
+                contained processes that weren't actually ours. It made claims without explaining
+                the reasoning behind them. Its trust signals were no different from those you'd find
+                on countless other agency websites.
+              </p>
+              <p>
+                Much of the content was essentially filling the expected spaces on a website rather
+                than representing what was actually true about our business.
+              </p>
+              <p>
+                <strong>It looked like a website. It didn't yet represent the business.</strong>
+              </p>
+              <p>Later, when talking to my developer, I realised this wasn't unusual.</p>
+              <p>Business owners often come to developers with a similar request:</p>
+
+              <blockquote class="note">
+                <p>“I run a business. Can you build me a website?”</p>
+              </blockquote>
+
+              <p>
+                That's the entire brief. The developer is then expected to turn that vague request
+                into a finished website.
+              </p>
+              <p>The owner may have an intuitive understanding of:</p>
+
+              <blockquote class="note">
+                <p>“This is who we are. This is what we do. This is why customers choose us.”</p>
+              </blockquote>
+
+              <p>
+                But unless that understanding is communicated, the developer doesn't have access to
+                it.
+              </p>
+              <p>
+                And the developer can't manufacture that knowledge simply by being good at web
+                development.
+              </p>
+              <p>
+                Therefore the developer relies on assumptions to fill the missing information, often
+                based on:
+              </p>
+              <ul>
+                <li>templates</li>
+                <li>industry conventions</li>
+                <li>previous websites</li>
+                <li>generic copy</li>
+                <li>AI-generated copy</li>
+                <li>generic design patterns</li>
+              </ul>
+              <p>
+                And that's how you get the website that looks appropriate for the category but
+                doesn't really represent the business.
+              </p>
+
+              <blockquote class="pull">
+                <p>
+                  When the purpose and requirements of a website remain ambiguous, the ambiguity
+                  doesn't disappear. Someone has to resolve it, usually through assumptions.
+                </p>
+              </blockquote>
+
+              <p>
+                A developer may know that they need more information, but knowing what to ask, how
+                to ask it, and in what order is itself ambiguous.
+              </p>
+              <p><strong>“Tell me about your business” isn't enough.</strong></p>
+              <p>
+                <strong
+                  >The useful questions are determined by the decisions the website eventually has
+                  to support.</strong
+                >
+              </p>
+              <p>
+                A website can be built by a developer, an agency, or increasingly by AI. You don't
+                need to know how to code to get one built well.
+              </p>
+              <p>But you do need to understand <strong>what you're asking to be built</strong>.</p>
+              <p>This article is about developing that understanding.</p>
+              <p>
+                That's what changed when I built version 2 of the Ad-Ascent website. I didn't start
+                with the website. I started with a much simpler question:
+              </p>
+              <p><strong>Who is this website for?</strong></p>
+              <p>
+                Then I worked backwards, applying the same reasoning to every component of the
+                website.
+              </p>
+              <p><strong>That way of thinking is what we'll explore in this article.</strong></p>
+            </section>
+
+            <section id="asset">
+              <h2>A website is an asset, not just a collection of pages</h2>
+              <p>
+                A website is an asset that gives a business its own environment on the internet; one
+                where people can explore the business more deeply.
+              </p>
+              <p>
+                They can learn about what it offers, understand how it works, look at its work,
+                evaluate it against other options, decide whether there is a fit, and take the next
+                step without needing to speak to the business at all.
+              </p>
+              <p>
+                Notice that we're describing the website from the visitor's perspective. That's
+                intentional.
+              </p>
+              <p>
+                Often developers think about a website in terms of what the business wants to put on
+                it: an About page, a Services page, some photographs, a few testimonials, and a
+                contact form. But those things are only meaningful because of what they enable the
+                people visiting the website to do.
+              </p>
+              <p>And those people won't all arrive for the same reason.</p>
+              <p>
+                <strong>Some may already be considering your business.</strong> They want to understand
+                what you offer, decide whether there's a fit, compare you with their other options, and
+                determine whether they can trust you enough to move forward.
+              </p>
+              <p>
+                <strong>Others may know little or nothing about your business.</strong> They may have
+                encountered you while exploring a problem, considering possible solutions, looking for
+                information, or simply exploring the internet.
+              </p>
+              <p>
+                In either case, they arrive at a different point in their relationship with the
+                business.
+              </p>
+              <p>
+                <strong
+                  >The website needs to meet them where they are and give them what they need to
+                  move forward.</strong
+                >
+              </p>
+            </section>
+
+            <section id="journey">
+              <h2>The Customer’s Journey</h2>
+              <p>
+                Imagine you're driving your car and it suddenly starts making an unfamiliar noise.
+              </p>
+              <p>Your first thought probably isn't:</p>
+
+              <blockquote class="note">
+                <p><em>“Which mechanic should I choose?”</em></p>
+              </blockquote>
+
+              <p>It's more likely:</p>
+
+              <blockquote class="note">
+                <p><strong>“What's wrong with my car?”</strong></p>
+              </blockquote>
+
+              <p>You want to understand the problem.</p>
+              <p>
+                You might listen to the noise more carefully, search online, ask someone you know,
+                or take the car to a mechanic. And these don't always happen separately.
+              </p>
+              <p>
+                You might take the car to a mechanic precisely because you don't understand what's
+                wrong. The mechanic examines it and tells you what the problem is, what caused it,
+                and what needs to be done.
+              </p>
+              <p>
+                In that situation, the mechanic isn't only providing the service. They're also
+                helping you <strong>understand the problem you're paying them to solve</strong>.
+              </p>
+              <p>
+                You may not know enough to fix it yourself. But if the mechanic can explain the
+                problem clearly, show you what they've found, and explain why a particular repair is
+                appropriate, you have a better basis for evaluating their recommendation.
+              </p>
+              <p>Now you're dealing with another question:</p>
+
+              <blockquote class="note">
+                <p><strong>“Is this the person I want to trust with my car?”</strong></p>
+              </blockquote>
+
+              <p>
+                You might ask questions. You might look at their experience or previous work. You
+                might look at reviews or ask someone for a recommendation. You might pay attention
+                to how they diagnose the problem and explain what they're proposing to do.
+              </p>
+              <p>As you learn more, you begin to form an impression of them.</p>
+              <p>Eventually, you may reach a point where you think:</p>
+
+              <blockquote class="note">
+                <p>
+                  <strong
+                    >“I think these people know what they're doing. I'm comfortable leaving my car
+                    with them.”</strong
+                  >
+                </p>
+              </blockquote>
+
+              <p>You've developed enough trust to move forward.</p>
+              <p>Notice what just happened.</p>
+              <p>
+                You didn't go directly from <strong>having a problem</strong> to <strong
+                  >choosing a provider</strong
+                >.
+              </p>
+              <p>
+                You needed to understand your situation, determine whether the proposed service was
+                appropriate, evaluate the person providing it, and develop enough confidence to
+                trust them with something that mattered to you.
+              </p>
+              <p>
+                Only then were you ready to choose. And if the experience was good, you might later
+                recommend the mechanic to someone else.
+              </p>
+              <p>
+                The exact process may vary from one situation to another, but there is a useful
+                progression underneath:
+              </p>
+
+              <div class="callout">
+                <ol class="journey" aria-label="The customer's journey">
+                  {journey.stages.map((stage) => <li>{stage}</li>)}
+                </ol>
+              </div>
+
+              <p>
+                These stages help us think about the different things people may need as their
+                relationship with a business develops.
+              </p>
+              <p>
+                A website can support that progression. It can help people discover a business,
+                understand what it offers, evaluate whether it's right for them, develop trust, and
+                take the next step. Although it's important to note that people may arrive at
+                different stages, and some stages may take place elsewhere.
+              </p>
+              <p>
+                Another important nuance is that these stages often overlap in real life. We're
+                separating the concepts to understand what a website needs to help people do.
+              </p>
+              <p>
+                <strong
+                  >The important question is what people need at any given stage, and how the
+                  website can help them move forward.</strong
+                >
+              </p>
+              <p>That's what we're going to explore next.</p>
+            </section>
+
+            <section id="understand">
+              <h2>Helping visitors understand your business</h2>
+              <p>
+                Imagine you've arrived at the website of a business you've never encountered before.
+              </p>
+              <p>
+                Before you can decide whether you want to work with them, you need to form some
+                basic understanding of what you're looking at.
+              </p>
+
+              <blockquote class="note">
+                <p><strong>Who are they?</strong></p>
+                <p><strong>What do they do?</strong></p>
+                <p><strong>Who do they do it for?</strong></p>
+                <p><strong>What exactly do they offer?</strong></p>
+              </blockquote>
+
+              <p>And perhaps:</p>
+              <p><strong>Is this even relevant to me?</strong></p>
+              <p>
+                If the website doesn't make these things reasonably clear, it becomes difficult to
+                move any further.
+              </p>
+              <p>
+                And so one of the first jobs a website needs to do is <strong
+                  >help someone form a clear picture of the business</strong
+                >.
+              </p>
+              <p>
+                This is where the homepage becomes important. The homepage is often the first
+                substantial place where someone encounters the business, but its job isn't
+                necessarily to explain everything the business does.
+              </p>
+              <p>
+                Its job is to help the visitor understand <strong>what they're looking at</strong> and
+                give them enough context to decide where to go next.
+              </p>
+              <p>For example, imagine a Google Ads agency whose homepage simply says:</p>
+
+              <blockquote class="note">
+                <p><strong>We help businesses grow.</strong></p>
+              </blockquote>
+
+              <p>
+                The statement may sound appealing, but it doesn't give the visitor much to work
+                with. They may still be wondering:
+              </p>
+              <p>
+                <em>“What do you actually do?”</em><br />
+                <em>“What kind of businesses do you work with?”</em><br />
+                <em>“What does ‘grow’ mean here?”</em><br />
+                <em>“Is this something I need?”</em>
+              </p>
+              <p>Now imagine the homepage provides a more specific explanation:</p>
+
+              <blockquote class="note">
+                <p>
+                  <strong
+                    >We help small and medium-sized businesses attract and convert customers through
+                    Google ads and websites.</strong
+                  >
+                </p>
+              </blockquote>
+
+              <p>
+                The visitor now has a clearer picture of what the business does, whom it serves, and
+                how its services might help.
+              </p>
+              <p>
+                They can begin to decide whether the business is relevant to them and whether they
+                want to learn more.
+              </p>
+              <p>But the homepage doesn't necessarily need to explain everything in detail.</p>
+              <p>
+                For example, a visitor might need a brief introduction to a service before deciding
+                whether to explore it further. That introduction could appear on the homepage, with
+                a link to a dedicated page explaining the service in greater depth.
+              </p>
+              <p>
+                Other information might belong in a different section of the homepage or on another
+                page entirely.
+              </p>
+
+              <blockquote class="pull">
+                <p>
+                  The need for the information comes before the decision about where that
+                  information should live.
+                </p>
+              </blockquote>
+
+              <p>
+                Some information belongs on the homepage because it helps establish the basic
+                picture of the business.
+              </p>
+              <p>Some requires a deeper explanation.</p>
+              <p>Some may deserve its own page.</p>
+              <p>
+                There is no universal answer. The structure should emerge from what the visitor
+                needs to understand, rather than from a standard list of pages that websites are
+                supposed to have.
+              </p>
+              <p>
+                We're deciding what someone needs to understand about the business in order to move
+                forward in their relationship with it.
+              </p>
+              <p>
+                Once visitors start to form an understanding of the business and its offering,
+                another question becomes important:
+              </p>
+
+              <blockquote class="note">
+                <p><strong>“Is this actually right for me?”</strong></p>
+              </blockquote>
+
+              <p>And that takes us to the next stage: <strong>evaluation</strong>.</p>
+            </section>
+
+            <section id="evaluate">
+              <h2>What do visitors need to evaluate your business?</h2>
+              <p>Let's say you're considering hiring a service provider.</p>
+              <p>
+                <strong
+                  >What would help you determine whether the service provider is right for you?</strong
+                >
+              </p>
+              <p>
+                You might want to know whether they've handled situations like yours or done work
+                similar to what you're looking for. You might want to know who will actually be
+                doing the work and what experience or qualifications they bring. You might also want
+                to understand how the provider approaches a problem and what their working process
+                involves. Or perhaps something completely different.
+              </p>
+              <p>What matters will vary from one situation to another.</p>
+              <p>
+                The important thing to note is that, at the evaluation stage, the question becomes:
+              </p>
+
+              <blockquote class="note">
+                <p>
+                  <strong
+                    >“What would help the people we're trying to serve determine whether this
+                    business is right for them?”</strong
+                  >
+                </p>
+              </blockquote>
+
+              <p>The answer determines what the website needs to provide.</p>
+              <p>
+                If visitors need to see previous work, the website might need a portfolio or case
+                studies. If the business's approach is an important consideration, it might need to
+                explain that approach. If the process affects the customer's decision, the website
+                might need to make it clear.
+              </p>
+              <p>
+                These don't necessarily need to become separate pages. A brief explanation might be
+                sufficient in one context, while another business might need a dedicated page with
+                considerably more detail.
+              </p>
+
+              <blockquote class="pull">
+                <p>The requirement comes first. The website element comes afterwards.</p>
+              </blockquote>
+
+              <p>
+                We're not simply collecting information the business has available or adding
+                components because other websites have them.
+              </p>
+              <p>
+                We're determining <strong
+                  >what visitors need to know in order to evaluate the business</strong
+                >, and then deciding how the website can best provide that information.
+              </p>
+              <p>
+                But even when visitors have enough information to judge that a business might be
+                right for them, one question can remain:
+              </p>
+
+              <blockquote class="note">
+                <p>
+                  <strong>“I think this could be right for me but should I work with them?”</strong>
+                </p>
+              </blockquote>
+
+              <p>That's where we turn to <strong>trust</strong>.</p>
+            </section>
+
+            <section id="confidence">
+              <h2>Building confidence in the working relationship</h2>
+              <p>
+                By this point, someone may understand your business, recognise that your offering is
+                relevant to their situation, and believe that you have the capability to help them.
+              </p>
+              <p>They're beginning to imagine working with you.</p>
+              <p>But some uncertainty may remain.</p>
+
+              <blockquote class="note">
+                <p>
+                  <strong
+                    >“This looks like what I need. But what would working with these people actually
+                    involve?”</strong
+                  >
+                </p>
+              </blockquote>
+
+              <p>They may be wondering:</p>
+              <ul>
+                <li>How much will it cost?</li>
+                <li>How much time and effort will I need to invest?</li>
+                <li>How long will the service provider need to deliver?</li>
+                <li>What will happen once we start working together?</li>
+                <li>What can I expect from them?</li>
+                <li>How will communication work?</li>
+                <li>What happens if something changes?</li>
+              </ul>
+              <p>These questions are different from those involved in evaluating the business.</p>
+              <p>
+                During evaluation, the visitor is trying to determine whether the business and its
+                offering are right for them.
+              </p>
+              <p>
+                Now, they're considering <strong
+                  >what choosing that business would mean for them</strong
+                >.
+              </p>
+              <p>
+                They may believe the business can deliver what they need, yet remain uncertain about
+                the commitment involved, the experience of working together, or whether the
+                arrangement will fit their circumstances.
+              </p>
+              <p>And this is where the website can do something different.</p>
+              <p>
+                It can help the visitor <strong
+                  >build confidence in the business and in the relationship they are considering</strong
+                >.
+              </p>
+              <p>
+                Some of that confidence may come from things we've already encountered while
+                thinking about evaluation: previous work, experience, qualifications, or evidence of
+                capability.
+              </p>
+              <p>
+                But confidence can also come from helping someone understand what happens after they
+                choose you.
+              </p>
+              <p>
+                For example, if the process is explained clearly, the visitor can begin to imagine
+                what working with the business will actually be like.
+              </p>
+              <p>They might understand:</p>
+              <ul>
+                <li>what happens first</li>
+                <li>what happens next</li>
+                <li>how long different stages might take</li>
+                <li>what the business will need from them</li>
+                <li>what they can expect from the business</li>
+                <li>how communication will work</li>
+                <li>what happens if something changes</li>
+              </ul>
+              <p>
+                The exact things that need to be explained will depend on the business and the
+                relationship it is asking someone to enter.
+              </p>
+              <p>The point isn't to add a generic <strong>“Trust”</strong> section to a website.</p>
+              <p>It's to ask:</p>
+
+              <blockquote class="note">
+                <p>
+                  <strong
+                    >“What uncertainty might still prevent someone from feeling comfortable moving
+                    forward, and what could the website do to reduce it?”</strong
+                  >
+                </p>
+              </blockquote>
+
+              <p>
+                Sometimes the answer will be evidence.<br />
+                Sometimes it will be transparency.<br />
+                Sometimes it will be the people behind the business.<br />
+                Sometimes it will be a clear explanation of the process and expectations.<br />
+                Sometimes it will be something else entirely.
+              </p>
+              <p>
+                Trust, then, isn't something you create by adding a few testimonials or putting a
+                “trusted” badge on the page.
+              </p>
+              <p>
+                It develops from the overall experience the business gives someone: what it says,
+                what it can demonstrate, how clearly it communicates, and how well it sets
+                expectations about the relationship.
+              </p>
+              <p>
+                And once someone has understood the business, evaluated the offering, and developed
+                enough confidence in both the business and what working with it would involve, we
+                reach a much simpler question:
+              </p>
+
+              <blockquote class="note">
+                <p><strong>“How do I take the next step?”</strong></p>
+              </blockquote>
+
+              <p>That is what the website needs to facilitate next.</p>
+            </section>
+
+            <section id="next-step">
+              <h2>The next step</h2>
+              <p>Once a visitor is ready to move forward, what should happen next?</p>
+              <p>For a service business, that might mean inviting someone to:</p>
+              <ul>
+                <li>Call the business.</li>
+                <li>Send an enquiry.</li>
+                <li>Request a quote.</li>
+                <li>Book a consultation.</li>
+                <li>Schedule an appointment.</li>
+                <li>Start a project.</li>
+              </ul>
+              <p>
+                The appropriate next step depends on the business, what it offers, and what the
+                visitor needs to do to move forward.
+              </p>
+              <p>
+                A business might want someone to book a consultation. Another might need an enquiry
+                before it can provide a quote. A business that sells directly online might want the
+                visitor to purchase immediately.
+              </p>
+              <p>
+                <strong
+                  >The next step needs to make sense for both the visitor and the business.</strong
+                >
+              </p>
+              <p>This is where the <strong>call to action</strong>, or CTA, comes in.</p>
+              <p>A CTA is essentially the website saying:</p>
+
+              <blockquote class="note">
+                <p><strong>“If you're ready to take this next step, here's how.”</strong></p>
+              </blockquote>
+
+              <p>
+                A CTA invites the action, while the website needs some form of functionality to
+                enable it.
+              </p>
+              <p>
+                A <em>Book a consultation</em> button might lead to a booking system.<br />
+                A <em>Request a quote</em> button might open an enquiry form.<br />
+                A <em>Call us</em> button might initiate a phone call.
+              </p>
+              <p>
+                The appropriate solution depends on the action the visitor needs to take and how the
+                business needs to handle it.
+              </p>
+            </section>
+
+            <section id="principles">
+              <div class="callout">
+                <h2>The principles of a Customer-First Website</h2>
+                <p>
+                  The principles we've been applying throughout this article can now be stated
+                  explicitly:
+                </p>
+                <ul>
+                  <li>
+                    <strong>Start with the customer, not the website.</strong> Understand who the website
+                    is for, what they need, and where they are in their relationship with the business.
+                  </li>
+                  <li>
+                    <strong>Understand the customer's journey.</strong> Consider what people need as they
+                    discover, understand, evaluate, and decide whether to work with a business. Remember
+                    that this journey isn't necessarily linear.
+                  </li>
+                  <li>
+                    <strong>Let customer needs determine website requirements.</strong> Identify what
+                    visitors need to understand, what would help them evaluate the business, what could
+                    give them confidence, and what they need to do next.
+                  </li>
+                  <li>
+                    <strong>Derive website components from those requirements.</strong> Decide what information
+                    to provide, how to organise it, how to present it, and what functionality is needed.
+                    Don't add pages or features simply because other websites have them.
+                  </li>
+                  <li>
+                    <strong>Represent the business accurately.</strong> The website should reflect what
+                    the business actually offers, how it works, and what customers can reasonably expect
+                    from it.
+                  </li>
+                </ul>
+              </div>
+
+              <p>
+                These principles give us a way to reason about what makes a business website
+                effective. They move us beyond asking what a website should look like or which pages
+                it should contain, towards understanding what it needs to accomplish.
+              </p>
+              <p>
+                <strong
+                  >The next step is to translate these principles into concrete website
+                  requirements:</strong
+                >
+              </p>
+              <ol>
+                <li>Content</li>
+                <li>Organisation</li>
+                <li>Design and presentation</li>
+                <li>Functionality</li>
+              </ol>
+              <p>That's what we'll explore in the next article.</p>
+            </section>
+
+            <div
+              class="bg-surface/50 mt-14 rounded-[var(--radius-lg)] border border-border p-8 text-center"
+            >
+              <p class="text-xl font-extrabold leading-snug text-text">
+                Wondering what your website needs to do?
+              </p>
+              <p class="mx-auto mt-3 max-w-md text-center text-sm leading-relaxed text-muted">
+                We'd start with who your website is for — not with a list of pages it's supposed to
+                have.
+              </p>
+              <Button href={`/${ctaLink.href}`} size="lg" class="mt-4" icon="arrow">
+                Start the Conversation
+              </Button>
+            </div>
+
+            <ArticleNext article={onlinePresenceArticle} label="Related reading" />
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+  <WhatsAppButton />
+</Layout>
