@@ -161,9 +161,6 @@ const articleLd = article && {
     <script>
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      // Opening reveal — the page gently fades itself in.
-      requestAnimationFrame(() => document.body.classList.add("is-ready"));
-
       // 0) Theme toggle ---------------------------------------------------
       const THEME_KEY = "theme";
       const themeMeta = document.querySelector('meta[name="theme-color"]');

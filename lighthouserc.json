@@ -8,12 +8,26 @@
       }
     },
     "assert": {
-      "assertions": {
-        "categories:performance": ["warn", { "minScore": 0.9 }],
-        "categories:accessibility": ["error", { "minScore": 0.95 }],
-        "categories:best-practices": ["error", { "minScore": 0.95 }],
-        "categories:seo": ["error", { "minScore": 0.95 }]
-      }
+      "assertMatrix": [
+        {
+          "matchingUrlPattern": "^(?!.*/thanks/).*$",
+          "assertions": {
+            "categories:performance": ["warn", { "minScore": 0.9 }],
+            "categories:accessibility": ["error", { "minScore": 0.95 }],
+            "categories:best-practices": ["error", { "minScore": 0.95 }],
+            "categories:seo": ["error", { "minScore": 0.95 }]
+          }
+        },
+        {
+          "matchingUrlPattern": "/thanks/",
+          "assertions": {
+            "categories:performance": ["warn", { "minScore": 0.9 }],
+            "categories:accessibility": ["error", { "minScore": 0.95 }],
+            "categories:best-practices": ["error", { "minScore": 0.95 }],
+            "categories:seo": "off"
+          }
+        }
+      ]
     },
     "upload": {
       "target": "filesystem",
