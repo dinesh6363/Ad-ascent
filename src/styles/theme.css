@@ -235,13 +235,20 @@ body::after {
   transform: translateY(0) scale(1);
 }
 
-/* Opening reveal — the page gently fades itself in. */
-.page-fade {
-  opacity: 0;
-  transition: opacity 0.6s ease;
+/* Opening reveal — the page gently fades itself in.
+   Pure CSS, so first paint never waits on JavaScript. It starts at 0.01, not 0:
+   browsers treat opacity-0 content as "not painted", which left Lighthouse in
+   CI with no First Contentful Paint (NO_FCP) on pages without other activity. */
+@keyframes page-fade-in {
+  from {
+    opacity: 0.01;
+  }
+  to {
+    opacity: 1;
+  }
 }
-.page-fade.is-ready {
-  opacity: 1;
+.page-fade {
+  animation: page-fade-in 0.6s ease both;
 }
 
 /* "Going deeper" — the section in focus sits forward; passed sections recede a
@@ -315,6 +322,7 @@ body::after {
     transform: none !important;
   }
   .page-fade {
+    animation: none !important;
     opacity: 1 !important;
   }
   [data-depth] {

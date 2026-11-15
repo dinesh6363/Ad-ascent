@@ -92,9 +92,9 @@ export const why = {
   bridge: "That's exactly why Ad-Ascent exists.",
 } as const;
 
-/* -------------------------------- Article -------------------------------- */
+/* -------------------------------- Articles ------------------------------- */
 
-export const article = {
+export const onlinePresenceArticle = {
   href: "/articles/understanding-your-business-online-presence",
   overline: "Understanding your business's online presence",
   lead: "Before deciding what to build, understand what your business needs the internet to do.",
@@ -102,8 +102,11 @@ export const article = {
     "Your online presence is more than a website, social media account, or Google listing. This article explores how people encounter businesses online, the different roles digital environments can play, and how to work out what your business actually needs.",
   cta: "Read the article",
   title: "Understanding your business's online presence",
+  /** Search-result title and description: keep under ~60 and ~155 characters. */
+  seoTitle: "Understanding Your Business's Online Presence | Ad-Ascent",
   description:
-    "An online presence isn't a checklist of assets. It's how your business can be encountered on the internet — and what it needs the internet to do. A guide to working that out before you decide what to build.",
+    "An online presence isn't a checklist of assets. Learn how people find businesses online, and work out what yours needs before deciding what to build.",
+  datePublished: "2026-09-16",
   /** Left rail table of contents. Every `id` must match a section id on the page. */
   toc: [
     {
@@ -142,6 +145,45 @@ export const article = {
       "So when we talk about the customer relationship, we're looking at the whole progression, not just what happens after someone becomes a customer.",
   },
 } as const;
+
+export const customerFirstArticle = {
+  href: "/articles/customer-first-website",
+  overline: "Customer-first website",
+  lead: "What makes a business website effective? Start with who it's for, and work backwards from what they need.",
+  teaser:
+    "A website can look the part without representing the business at all. This article follows a visitor's journey, from understanding your business to taking the next step, and shows how to work out what your website actually needs to do at each stage.",
+  cta: "Read the article",
+  title: "Customer-First Website: What Makes a Business Website Effective?",
+  /** Search-result title and description: keep under ~60 and ~155 characters. */
+  seoTitle: "What Makes a Business Website Effective? | Ad-Ascent",
+  description:
+    "An effective website starts with the customer. Learn what visitors need to understand, evaluate and trust your business, and to take the next step.",
+  datePublished: "2026-11-14",
+  /** Left rail table of contents. Every `id` must match a section id on the page. */
+  toc: [
+    { id: "introduction", label: "Introduction", children: [] },
+    {
+      id: "asset",
+      label: "A website is an asset, not just a collection of pages",
+      children: [],
+    },
+    { id: "journey", label: "The Customer’s Journey", children: [] },
+    { id: "understand", label: "Helping visitors understand your business", children: [] },
+    { id: "evaluate", label: "What do visitors need to evaluate your business?", children: [] },
+    { id: "confidence", label: "Building confidence in the working relationship", children: [] },
+    { id: "next-step", label: "The next step", children: [] },
+    { id: "principles", label: "The principles of a Customer-First Website", children: [] },
+  ],
+  /** The progression the whole article is organised around, pinned in the left rail. */
+  journey: {
+    title: "The customer’s journey",
+    stages: ["Discover", "Understand", "Evaluate", "Trust", "Contact", "Purchase", "Refer"],
+    note: "People may arrive at different stages, some stages happen elsewhere, and in real life they often overlap. Separating them helps us see what a website needs to help people do.",
+  },
+} as const;
+
+/** Shown on the homepage, in this order. */
+export const articles = [onlinePresenceArticle, customerFirstArticle] as const;
 
 /* --------------------------------- How ----------------------------------- */
 
